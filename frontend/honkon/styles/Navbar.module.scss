@@ -1,0 +1,121 @@
+.navigation {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: space-around !important;
+  background-color: #fff;
+  color: black;
+  box-shadow: 0 0.1rem 0.1rem 0.1rem rgba(9, 9, 9, 0.23);
+
+  @include desktop() {
+    justify-content: space-around !important;
+  }
+}
+
+.navLeft {
+  display: none;
+  @include desktop() {
+    display: flex;    
+  }
+}
+
+.logo {
+  @include desktop() {
+    img{      
+      width: 10vw;
+    }
+  }
+}
+
+.socialMediaIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.navtoggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include desktop() {
+    display: none;
+  }
+}
+
+.hamBox {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  transition: 0.3s ease;
+  justify-content: center;
+}
+
+.hamBoxSpin {
+  display: flex;
+  position: relative;
+}
+
+.lineTop,
+.lineMid,
+.lineBot {
+  margin: 0.2rem auto;
+  display: block;
+  width: 24px;
+  height: 2px;
+  border-radius: 10px;
+  background: black;
+  left: 0;
+  right: 0;
+  transform: rotate(0deg);
+  transition: all 0.4s;
+}
+
+.spinRight {
+  margin: 0 auto;
+  transform: rotate(135deg);
+}
+
+.spinLeft {
+  margin: 0 auto;
+  transform: rotate(225deg);
+}
+
+.menu {
+  width: 100% !important;
+  top: 6rem !important;
+  transition: "all 0.3s ease-out" !important;
+
+  @include desktop() {
+    display: flex !important;
+    border-top: thick double;
+    
+    div {
+      display: inline;
+      margin: auto auto;
+    }    
+  }
+}
+
+.menuItems {
+  @include desktop() {
+    display: inline-block !important;
+    color: black !important;
+    font-stretch: normal !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    border-radius: .4rem;
+    margin: .2rem .5rem .2rem .5rem;
+    padding: .3rem .5rem .3rem .5rem;
+    min-width: 5rem;
+    text-align: center;
+  }
+}
+
+.menuItems:hover {
+  background-color: gray;
+  transition: all 0.4s;
+}

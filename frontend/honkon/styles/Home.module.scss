@@ -1,3 +1,11 @@
+@import "mixins";
+
+@include desktop() {
+  .logo {
+    width: 5px;
+  }
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -274,5 +282,28 @@
   }
   to {
     transform: rotate(0deg);
+  }
+}
+
+
+
+.carouselContentWrapper {
+  position: relative;
+  div {
+    width: 75%;
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+    color: #ffffff;
+  }
+
+  @include desktop() {
+    height:20vh;
+    bottom: 12px;
+    color: black;
+    position: relative;
+    top: 0;
+
+
   }
 }

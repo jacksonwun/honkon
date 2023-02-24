@@ -5,12 +5,15 @@ import React from "react";
 import Layout from "components/common/Layout";
 import ContextProvider from "lib/context";
 
+import { SSRProvider } from 'react-bootstrap';
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/Home.module.scss'
 
 const App = ({ Component, pageProps }) => (
   <>
+  <SSRProvider>
     <Head>
       <meta
         name="viewport"
@@ -26,7 +29,9 @@ const App = ({ Component, pageProps }) => (
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </ContextProvider>
+    </ContextProvider>    
+  </SSRProvider>
+
   </>
 );
 

@@ -5,90 +5,78 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faLinkedin, faInstagram, faYoutube } from "@fortawesome/free-brands-svg-icons"
 
 import Nav from 'react-bootstrap/Nav';
-import NavbarReact from 'react-bootstrap/Navbar';
+import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
+import styles from '/styles/Navbar.module.scss'
 
-export default function Navbar(){
-  const [showMobileSidebar, setMobileSidebar] = useState(false)
-  const toggleLibrary = () => setMobileSidebar(!showMobileSidebar)
+export default function Navigation(){
+  const [isNavExpanded, setIsNavExpanded] = useState(false)
+  function toggle(){
+    setIsNavExpanded(!isNavExpanded);
+  }
 
   return (
   <>
-    <div className="container">
-      <nav className="navbar navbar-expand-lg navbar-light">
-        <div className="d-flex justify-content-between align-items-center navbar-top">
-          <ul className="navbar-left">
-            <li>Wed, March 4, 2020</li>
-            <li>30°C,London</li>
+    <Navbar expand={false} className={styles.navigation}>
+      <Navbar.Text className={styles.navLeft}>
+        <ul className="navbar-left">
+          <li>Wed, March 4, 2020</li>
+          <li>30°C,London</li>
+        </ul>
+      </Navbar.Text>
+      <Navbar.Brand href="/" className={`${styles.logo}`}>
+        <img src="/logo.png" alt="" className="logo" />
+      </Navbar.Brand>
+      <Navbar.Text>
+        <div className="d-flex">
+          <ul className="navbar-right">
+            <li>
+              <a href="#">ENGLISH</a>
+            </li>
+            <li>
+              <a href="#">繁體中文</a>
+            </li>
           </ul>
-          <div>
-            <a className="navbar-brand" href="#"
-              ><img src="assets/images/logo.svg" alt=""
-            /></a>
-          </div>
-          <div className="d-flex">
-            <ul className="navbar-right">
-              <li>
-                <a href="#">ENGLISH</a>
-              </li>
-              <li>
-                <a href="#">繁體中文</a>
-              </li>
-            </ul>
-            <ul className="social-media">
-              <li>
-                <a href="#">
-                <FontAwesomeIcon icon={faFacebook} />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                <FontAwesomeIcon icon={faTwitter} />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                <FontAwesomeIcon icon={faLinkedin} />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                <FontAwesomeIcon icon={faInstagram} />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <FontAwesomeIcon icon={faYoutube} />
-                </a>
-              </li>
-            </ul>
-          </div>
+          <ul className="social-media">
+            <li>
+              <FontAwesomeIcon className={styles.socialMediaIcon} icon={faFacebook} href="/"/>
+            </li>
+            <li>
+              <FontAwesomeIcon className={styles.socialMediaIcon} icon={faTwitter} />
+            </li>
+            <li>
+              <FontAwesomeIcon className={styles.socialMediaIcon} icon={faLinkedin} />
+            </li>
+            <li>
+              <FontAwesomeIcon className={styles.socialMediaIcon} icon={faInstagram} />
+            </li>
+            <li>
+              <FontAwesomeIcon className={styles.socialMediaIcon} icon={faYoutube} />
+            </li>
+          </ul>
         </div>
+      </Navbar.Text>      
+      <Navbar.Toggle className={styles.navtoggle} onClick={()=>toggle()}>
+        <div className={isNavExpanded ? `${styles.hamBox} ${styles.hamBoxSpin}` : styles.hamBox}>
+          <span className={isNavExpanded ? `${styles.lineTop} ${styles.spinRight}` : styles.lineTop}></span>
+          <span className={isNavExpanded ? `hide` : styles.lineTop}></span>
+          <span className={isNavExpanded ? `${styles.lineTop} ${styles.spinLeft}` : styles.lineTop}></span>
+        </div>
+      </Navbar.Toggle>
+      <Navbar.Collapse className={styles.menu}>
+        <Nav>
+          <Nav.Link href="#home" className={styles.menuItems} >Home</Nav.Link>
+          <Nav.Link href="#link" className={styles.menuItems} >News</Nav.Link>
+          <Nav.Link href="#link" className={styles.menuItems} >Location</Nav.Link>
+          <Nav.Link href="#link" className={styles.menuItems} >Discount</Nav.Link>
+          <Nav.Link href="#link" className={styles.menuItems} >Real Estate</Nav.Link>
+          <Nav.Link href="#link" className={styles.menuItems} >Cooking</Nav.Link>
+          <Nav.Link href="#link" className={styles.menuItems} >Education</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
 
-        <NavbarReact className="navbar-bottom-menu">
-          <NavbarReact.Brand href="#home">React-Bootstrap</NavbarReact.Brand>
-          <NavbarReact.Toggle aria-controls="basic-navbar-nav">aaa</NavbarReact.Toggle>
-          <NavbarReact.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </NavbarReact.Collapse>
-        </NavbarReact>
-      </nav>
-    </div>
+    </Navbar>
   </>
   )
 };
