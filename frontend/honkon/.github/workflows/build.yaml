@@ -1,0 +1,90 @@
+name: Build Docker Container & Push to DO Registry 
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test_react:
+    uses: jacksonwun/sidequestweb/.github/workflows/test-react.yaml@main
+    secrets:
+      REACT_APP_PROXY_HOST: ${{ secrets.REACT_APP_PROXY_HOST }}
+      REACT_APP_BACKEND_PROXY_HOST: ${{ secrets.REACT_APP_BACKEND_PROXY_HOST }}
+      REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
+      REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+      REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+      REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+      REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+      REACT_APP_FIREBASE_APPID: ${{ secrets.REACT_APP_FIREBASE_APPID }}
+      REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
+  build:
+    runs-on: ubuntu-latest
+    needs: [test_react]
+    env:
+      CLUSTER_NAME: k8s-1-24-4-do-0-lon1-1663790792174
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install Doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Login to DO Container Registry with short-lived creds
+        run: doctl registry login --expiry-seconds 1200
+      - name: Build Container Image
+        working-directory: .
+        run: |
+          docker build -f Dockerfile --target builder \
+            --build-arg REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }} \
+            --build-arg REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_APP_BACKEND_PROXY_HOST }} \
+            --build-arg REACT_APP_FIREBASE_APIKEY=${{ secrets.REACT_APP_FIREBASE_APIKEY }} \
+            --build-arg REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }} \
+            --build-arg REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }} \
+            --build-arg REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }} \
+            --build-arg REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }} \
+            --build-arg REACT_APP_FIREBASE_APPID=${{ secrets.REACT_APP_FIREBASE_APPID }} \
+            --build-arg REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }} \
+            -t registry.digitalocean.com/djangok8s/django-k8s-web-frontend:latest \
+            -t registry.digitalocean.com/djangok8s/django-k8s-web-frontend:${GITHUB_SHA::7} \
+            .
+        env:
+          REACT_APP_PROXY_HOST: ${{ secrets.REACT_APP_PROXY_HOST }}
+          REACT_APP_BACKEND_PROXY_HOST: ${{ secrets.REACT_APP_BACKEND_PROXY_HOST }}
+          REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
+          REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+          REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          REACT_APP_FIREBASE_APPID: ${{ secrets.REACT_APP_FIREBASE_APPID }}
+          REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
+      - name: Push Image
+        run: |
+          docker push registry.digitalocean.com/djangok8s/django-k8s-web-frontend --all-tags
+      - name: K8s cluster kubeconfig file with short-lived creds
+        run: |
+          doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
+      - name: Update Deployment Secrets 
+        run: |
+          cat << EOF >> src/.env
+          REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }}
+          REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_APP_BACKEND_PROXY_HOST }}
+          REACT_APP_FIREBASE_APIKEY=${{ secrets.REACT_APP_FIREBASE_APIKEY }}
+          REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+          REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+          REACT_APP_FIREBASE_APPID=${{ secrets.REACT_APP_FIREBASE_APPID }}          
+          REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
+          EOF
+          kubectl delete secret django-k8s-react-prod-env
+          kubectl create secret generic django-k8s-react-prod-env --from-env-file=src/.env
+      - name: Update Deployment image
+        run: |
+          kubectl set image deployment/react-deployment react-container=registry.digitalocean.com/djangok8s/django-k8s-web-frontend:${GITHUB_SHA::7}
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/react-deployment

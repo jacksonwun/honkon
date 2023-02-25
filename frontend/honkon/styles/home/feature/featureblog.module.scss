@@ -1,0 +1,29 @@
+.box {
+    padding-block: .5rem;
+    padding-bottom: .5rem;
+    border-bottom: solid 1px;
+    border-color: black;
+}
+
+.title {
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: .4rem;
+    padding-top: .4rem;
+    margin-left: .2rem;
+    margin-right: .2rem;
+}
+
+.image {
+    max-width: 1rem;
+    max-height: 1rem;
+    margin-right: .1rem;
+    border-radius: 50%;
+}
