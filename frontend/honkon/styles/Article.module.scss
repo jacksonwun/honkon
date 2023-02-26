@@ -1,0 +1,76 @@
+@import "mixins";
+
+.suggestionBottom {
+    width: 915px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.articleWrapper {
+    width: 915px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.thumbBoxWithDesList:not(:last-child:first-child)  {
+    width: 100%;
+    overflow: hidden;
+    @include desktop() {
+        width: 50%;
+        height: 50%;
+        float: left;
+        padding: 0 .5rem 0 0;
+        img {
+            display: block;
+        }
+    }
+}
+
+.thumbBoxDes {
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw , 3rem);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    @supports (-webkit-line-clamp: 2) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+}
+
+.thumbBoxTable {
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 100%;
+    list-style: none;
+}
+
+.thumbBoxList:not(:last-child:first-child)  {
+    width: 100%;
+    @include desktop() {
+        width: 25%;
+        float: left;
+        padding: 0 .5rem 0 0;
+        img {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+    }
+}
+
+.thumbBox {
+    text-decoration: none;
+    color: black;
+}
+
+.thumbBox:hover {
+    text-decoration: none;
+    color: gray
+}
