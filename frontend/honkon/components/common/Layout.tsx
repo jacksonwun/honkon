@@ -1,12 +1,14 @@
-import React from "react";
+import React, { HtmlHTMLAttributes } from "react";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-const Layout = ({ children }) => (
+const Layout = ({
+  children,
+}: React.PropsWithChildren<{ example?: string }>) => (
   <>
     <Navbar />
-        {children}
+    {children}
     <Footer />
   </>
 );
