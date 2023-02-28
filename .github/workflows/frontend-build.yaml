@@ -1,4 +1,4 @@
-name: Build Docker Container & Push to DO Registry 
+name: Frontend - Build Docker Container & Push to DO Registry 
 
 on:
   workflow_call:
@@ -37,7 +37,7 @@ jobs:
       - name: Login to DO Container Registry with short-lived creds
         run: doctl registry login --expiry-seconds 1200
       - name: Build Container Image
-        working-directory: .
+        working-directory: ./frontend/honkon
         run: |
           docker build -f Dockerfile --target builder \
             --build-arg REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }} \
@@ -64,7 +64,7 @@ jobs:
           REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
       - name: Push Image
         run: |
-          docker push registry.digitalocean.com/djangok8s/django-k8s-web-frontend --all-tags
+          docker push ${{ vars.DOCN_REGISTRY_FRONTEND }} --all-tags
       - name: K8s cluster kubeconfig file with short-lived creds
         run: |
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}

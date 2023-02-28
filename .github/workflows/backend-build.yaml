@@ -79,7 +79,7 @@ jobs:
           kubectl create secret generic ${{ secrets.DOCN_BACKEND_SECRET_NAME }} --from-env-file=.env.prod
       - name: Update Deployment image
         run: |
-          kubectl set image deployment/django-deployment django-container=registry.digitalocean.com/djangok8s/django-k8s-web:${GITHUB_SHA::7}
+          kubectl set image deployment/django-deployment django-container=${{ vars.DOCN_REGISTRY }}:${GITHUB_SHA::7}
       - name: Wait for rollout
         run: |
           kubectl rollout status deployment/django-deployment
