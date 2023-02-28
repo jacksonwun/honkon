@@ -4,14 +4,13 @@ on:
   workflow_call:
   workflow_dispatch:
 
-  pull:
+  pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: prod
-    # needs: [test_django]
     env:
       CLUSTER_NAME: ${{ secrets.DOCN_CLUSTER_NAME }}
     steps:
@@ -23,3 +22,5 @@ jobs:
           token: ${{ secrets.DOCN_ACCESS_TOKEN }}
       - name: Login to DO Container Registry with short-lived creds
         run: doctl registry login --expiry-seconds 1200
+      - name: Start Garbage Collection
+        run: doctl registry garbage-collection
