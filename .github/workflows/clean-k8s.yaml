@@ -1,0 +1,25 @@
+name: Backend - Build Docker Container & Push to DO Registry
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+  pull:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: prod
+    # needs: [test_django]
+    env:
+      CLUSTER_NAME: ${{ secrets.DOCN_CLUSTER_NAME }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install Doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DOCN_ACCESS_TOKEN }}
+      - name: Login to DO Container Registry with short-lived creds
+        run: doctl registry login --expiry-seconds 1200

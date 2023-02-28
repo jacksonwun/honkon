@@ -1,4 +1,4 @@
-FROM node:alpine as build
+FROM node:alpine as builder
 WORKDIR /app
 COPY package.json yarn.lock ./
 # install dependencies
