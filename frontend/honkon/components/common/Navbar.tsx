@@ -16,7 +16,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import styles from "/styles/Navbar.module.scss";
-import SocialMedia from "./socialMedia";
+import SocialMedia from "./SocialMedia";
 
 export default function Navigation() {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
