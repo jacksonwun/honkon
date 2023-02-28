@@ -55,6 +55,7 @@ jobs:
         working-directory: ./backend/honkon
         run: |
           cat << EOF >> .env.prod
+          DEBUG=${{ secrets.DEBUG }}
           PROJECT_NAME=${{ secrets.PROJECT_NAME }}
           ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}
           INTERNAL_IPS=${{ secrets.INTERNAL_IPS }}
