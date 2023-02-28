@@ -3,10 +3,11 @@ name: Frontend - Build Docker Container & Push to DO Registry
 on:
   workflow_call:
   workflow_dispatch:
+
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths:
+      - 'frontend/**'
 
 jobs:
   # test_react:
