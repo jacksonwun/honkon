@@ -1,0 +1,88 @@
+name: Backend - Build Docker Container & Push to DO Registry
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # test_django:
+  #   uses: jacksonwun/sidequestwebBackend/.github/workflows/test-django.yaml@master
+  #   secrets:
+  #     ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+  #     REDIS_DATABASE_PORT: ${{ secrets.REDIS_DATABASE_PORT }}
+  #     FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
+  #     FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+  #     FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+  #     FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+  #     FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+  #     FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+  #     FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
+  #     FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
+  #     FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
+  #     FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
+  build:
+    runs-on: ubuntu-latest
+    # needs: [test_django]
+    env:
+      CLUSTER_NAME: ${{ secrets.DOCN_CLUSTER_NAME }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Install Doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Login to DO Container Registry with short-lived creds
+        run: doctl registry login --expiry-seconds 1200
+      - name: Build Container Image
+        working-directory: ./honkon
+        run: |
+          docker build -f Dockerfile --target builder \
+            -t registry.digitalocean.com/djangok8s/django-k8s-web:latest \
+            -t registry.digitalocean.com/djangok8s/django-k8s-web:${GITHUB_SHA::7} \
+            .
+      - name: Push Image
+        run: |
+          docker push registry.digitalocean.com/djangok8s/django-k8s-web --all-tags
+      - name: K8s cluster kubeconfig file with short-lived creds
+        run: |
+          doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
+      - name: Update deployment secrets
+        run: |
+          cat << EOF >> honkon/.env.prod
+          PROJECT_NAME=${{ secrets.PROJECT_NAME }}
+          ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}
+          INTERNAL_IPS=${{ secrets.INTERNAL_IPS }}
+          DOMAIN_URL=${{ secrets.DOMAIN_URL }}
+          REDIS_DATABASE_PORT=${{ secrets.REDIS_DATABASE_PORT }}
+          AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}
+          AWS_S3_REGION_NAME=${{ secrets.AWS_S3_REGION_NAME }}
+          DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
+          DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
+          DJANGO_SUERPUSER_EMAIL=${{ secrets.DJANGO_SUERPUSER_EMAIL }}
+          DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}          
+          POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
+          REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }}
+          EOF
+          kubectl delete secret django-k8s-web-prod-env
+          kubectl create secret generic django-k8s-web-prod-env --from-env-file=honkon/.env.prod
+      - name: Update Deployment image
+        run: |
+          kubectl set image deployment/django-deployment django-container=registry.digitalocean.com/djangok8s/django-k8s-web:${GITHUB_SHA::7}
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/django-deployment
+      - name: Migrate DB
+        run: |
+          export SINGLE_POD_NAME=$(kubectl get pod -l component=django-deployment -o jsonpath="{.items[0].metadata.name}")
+          kubectl exec -i $SINGLE_POD_NAME -- bash /app/migrate.sh
+          kubectl exec -i $SINGLE_POD_NAME -- bash /app/collectstatic.sh

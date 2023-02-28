@@ -158,6 +158,20 @@ if RAILWAY:
             }
         }
     }
+else:
+    DATABASES = {
+        'default': {
+                "ENGINE": "django.db.backends.postgresql",
+                "NAME": os.getenv("POSTGRES_DB"),
+                "USER": os.getenv("POSTGRES_USER"),
+                "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+                'HOST': os.getenv("POSTGRES_HOST"),
+                "PORT": os.getenv("POSTGRES_PORT"),
+            }
+        }
+    # REPLICA_DATABASE_URL = os.getenv("REPLICA_DATABASE_URL")
+    # if REPLICA_DATABASE_URL:
+    #     DATABASES['replica'] = dj_database_url.config(default=REPLICA_DATABASE_URL, conn_max_age=1800)
 
 
 # Password validation
