@@ -105,7 +105,7 @@ const SectionC = () => (
                 <span className="thumb-title">TOURISM</span>
               </div>
               <h5 className="font-weight-600 mt-3">
-                From Pakistan to the Caribbean: Curry's journey
+                From Pakistan to the Caribbean: Curry&#39;s journey
               </h5>
             </div>
           </div>

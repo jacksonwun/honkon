@@ -1,5 +1,6 @@
 import React from "react";
 import SocialMedia from "./socialMedia";
+import Image from "next/image";
 
 const Footer = () => (
   <footer>
@@ -109,7 +110,13 @@ const Footer = () => (
       <div className="row">
         <div className="col-sm-12">
           <div className="d-flex justify-content-between">
-            <img src="assets/images/logo.svg" className="footer-logo" alt="" />
+            <Image
+              src="assets/images/logo.svg"
+              className="footer-logo"
+              alt=""
+              width={680}
+              height={680}
+            />
 
             <div className="d-flex justify-content-end footer-social">
               <h5 className="m-0 font-weight-600 mr-3 d-none d-lg-flex">
@@ -148,11 +155,7 @@ const Footer = () => (
             </ul>
             <p className="font-weight-medium">
               © 2020{" "}
-              <a
-                href="https://www.bootstrapdash.com/"
-                target="_blank"
-                className="text-dark"
-              >
+              <a href="https://www.bootstrapdash.com/" className="text-dark">
                 @ BootstrapDash
               </a>
               , Inc.All Rights Reserved.

@@ -25,8 +25,8 @@ const ThumbBoxLarge = ({ cat, title, picURL, slug, des }: ThumbBoxWithDes) => {
         Melania Trump speaks about courage at State Department
       </h1>
       <p className="fs-15 font-weight-normal">
-        Lorem Ipsum has been the industry's standard dummy text ever since the
-        1500s, when an unknown printer took a galley of type and
+        Lorem Ipsum has been the industry&#39;s standard dummy text ever since
+        the 1500s, when an unknown printer took a galley of type and
       </p>
     </Link>
   );

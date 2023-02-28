@@ -29,8 +29,8 @@ const SectionB = () => (
             Melania Trump speaks about courage at State Department
           </h1>
           <p className="fs-15 font-weight-normal">
-            Lorem Ipsum has been the industry's standard dummy text ever since
-            the 1500s, when an unknown printer took a galley of type and
+            Lorem Ipsum has been the industry&#39;s standard dummy text ever
+            since the 1500s, when an unknown printer took a galley of type and
           </p>
         </div>
         <div className="col-lg-6  mb-5 mb-sm-2">
@@ -47,10 +47,10 @@ const SectionB = () => (
                 <span className="thumb-title">POLITICS</span>
               </div>
               <h5 className="font-weight-600 mt-3">
-                A look at California's eerie plane graveyards
+                A look at California&#39;s eerie plane graveyards
               </h5>
               <p className="fs-15 font-weight-normal">
-                Lorem Ipsum has been the industry's standard dummy text
+                Lorem Ipsum has been the industry&#39;s standard dummy text
               </p>
             </div>
             <div className="col-sm-6  mb-5 mb-sm-2">
@@ -65,10 +65,10 @@ const SectionB = () => (
                 <span className="thumb-title">TRAVEL</span>
               </div>
               <h5 className="font-weight-600 mt-3">
-                The world's most beautiful racecourses
+                The world&#39;s most beautiful racecourses
               </h5>
               <p className="fs-15 font-weight-normal">
-                Lorem Ipsum has been the industry's standard dummy text
+                Lorem Ipsum has been the industry&#39;s standard dummy text
               </p>
             </div>
           </div>
@@ -88,7 +88,7 @@ const SectionB = () => (
                 Japan cancels cherry blossom festivals over virus fears
               </h5>
               <p className="fs-15 font-weight-normal">
-                Lorem Ipsum has been the industry's standard dummy text
+                Lorem Ipsum has been the industry&#39;s standard dummy text
               </p>
             </div>
             <div className="col-sm-6">
@@ -106,7 +106,7 @@ const SectionB = () => (
                 Classic cars reborn as electric vehicles
               </h5>
               <p className="fs-15 font-weight-normal">
-                Lorem Ipsum has been the industry's standard dummy text
+                Lorem Ipsum has been the industry&#39;s standard dummy text
               </p>
             </div>
           </div>

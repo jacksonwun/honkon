@@ -9,6 +9,7 @@ import {
   faInstagram,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import Image from "next/image";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -33,7 +34,13 @@ export default function Navigation() {
           </ul>
         </Navbar.Text>
         <Navbar.Brand href="/" className={`${styles.logo}`}>
-          <img src="/logo.png" alt="" className="logo" />
+          <Image
+            src="/logo.png"
+            alt=""
+            className="logo"
+            width={670}
+            height={680}
+          />
         </Navbar.Brand>
         <Navbar.Text>
           <div className="d-flex">

@@ -51,7 +51,7 @@ const SectionA = () => (
             South Korea’s Moon Jae-in sworn in vowing address
           </h5>
           <p className="fs-15 font-weight-normal">
-            Lorem Ipsum has been the industry's standard dummy text
+            Lorem Ipsum has been the industry&#39;s standard dummy text
           </p>
           <a href="#" className="font-weight-bold text-dark pt-2">
             Read Article
@@ -72,7 +72,7 @@ const SectionA = () => (
             These puppies are training to assist in avalanche rescue
           </h5>
           <p className="fs-15 font-weight-normal">
-            Lorem Ipsum has been the industry's standard dummy text
+            Lorem Ipsum has been the industry&#39;s standard dummy text
           </p>
           <a href="#" className="font-weight-bold text-dark pt-2">
             Read Article
@@ -90,10 +90,10 @@ const SectionA = () => (
             <span className="thumb-title">BUSINESS</span>
           </div>
           <h5 className="font-weight-bold mt-3">
-            'Love Is Blind' couple opens up about their first year
+            &#39;Love Is Blind&#39; couple opens up about their first year
           </h5>
           <p className="fs-15 font-weight-normal">
-            Lorem Ipsum has been the industry's standard dummy text
+            Lorem Ipsum has been the industry&#39;s standard dummy text
           </p>
           <a href="#" className="font-weight-bold text-dark pt-2">
             Read Article
