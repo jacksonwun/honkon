@@ -70,7 +70,7 @@ jobs:
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
       - name: Update Deployment Secrets 
         run: |
-          cat << EOF >> src/.env
+          cat << EOF >> .env.prod
           REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }}
           REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_APP_BACKEND_PROXY_HOST }}
           REACT_APP_FIREBASE_APIKEY=${{ secrets.REACT_APP_FIREBASE_APIKEY }}
@@ -81,8 +81,8 @@ jobs:
           REACT_APP_FIREBASE_APPID=${{ secrets.REACT_APP_FIREBASE_APPID }}          
           REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
           EOF
-          kubectl delete secret django-k8s-react-prod-env
-          kubectl create secret generic django-k8s-react-prod-env --from-env-file=src/.env
+          kubectl delete secret ${{ secrets.DOCN_FRONTEND_SECRET_NAME }}
+          kubectl create secret generic ${{ secrets.DOCN_FRONTEND_SECRET_NAME }} --from-env-file=.env.prod
       - name: Update Deployment image
         run: |
           kubectl set image deployment/react-deployment react-container=registry.digitalocean.com/djangok8s/django-k8s-web-frontend:${GITHUB_SHA::7}
