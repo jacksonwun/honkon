@@ -19,8 +19,28 @@ spec:
           service:
             name: react-cluster-ip-service
             port:
-              number: 80
+              number: 800
   - host: django.inexperienceds.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: django-cluster-ip-service
+            port:
+              number: 810
+  - host: honkon.life
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: react-cluster-ip-service
+            port:
+              number: 80
+  - host: django.honkon.life
     http:
       paths:
       - pathType: Prefix
