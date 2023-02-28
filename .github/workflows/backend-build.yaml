@@ -42,8 +42,8 @@ jobs:
         working-directory: ./backend/honkon
         run: |
           docker build -f Dockerfile --target builder \
-            -t ${{ vars.DOCN_REGISTRY }} :latest \
-            -t ${{ vars.DOCN_REGISTRY }} :${GITHUB_SHA::7} \
+            -t ${{ vars.DOCN_REGISTRY }}:latest \
+            -t ${{ vars.DOCN_REGISTRY }}:${GITHUB_SHA::7} \
             .
       - name: Push Image
         run: |
