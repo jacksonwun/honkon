@@ -1,0 +1,17 @@
+##########################
+# Cluster IP Service
+###########################
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-cluster-ip-service
+spec:
+  type: ClusterIP
+  selector:
+    component: honkon-django-deployment
+  ports:
+    - name: http
+      protocol: TCP
+      port: 81
+      targetPort: 8002
+  clusterIP: 10.245.211.113
