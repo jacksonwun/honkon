@@ -42,12 +42,12 @@ jobs:
         working-directory: ./backend/honkon
         run: |
           docker build -f Dockerfile --target builder \
-            -t ${{ secrets.DOCN_REGISTRY }} :latest \
-            -t ${{ secrets.DOCN_REGISTRY }} :${GITHUB_SHA::7} \
+            -t ${{ DOCN_REGISTRY }} :latest \
+            -t ${{ DOCN_REGISTRY }} :${GITHUB_SHA::7} \
             .
       - name: Push Image
         run: |
-          docker push ${{ secrets.DOCN_REGISTRY }} --all-tags
+          docker push ${{ DOCN_REGISTRY }} --all-tags
       - name: K8s cluster kubeconfig file with short-lived creds
         run: |
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
