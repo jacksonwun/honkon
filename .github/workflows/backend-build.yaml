@@ -25,6 +25,7 @@ jobs:
   #     FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
   build:
     runs-on: ubuntu-latest
+    environment: prod
     # needs: [test_django]
     env:
       CLUSTER_NAME: ${{ secrets.DOCN_CLUSTER_NAME }}
