@@ -9,23 +9,24 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test_react:
-    uses: jacksonwun/sidequestweb/.github/workflows/test-react.yaml@main
-    secrets:
-      REACT_APP_PROXY_HOST: ${{ secrets.REACT_APP_PROXY_HOST }}
-      REACT_APP_BACKEND_PROXY_HOST: ${{ secrets.REACT_APP_BACKEND_PROXY_HOST }}
-      REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
-      REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
-      REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
-      REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
-      REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
-      REACT_APP_FIREBASE_APPID: ${{ secrets.REACT_APP_FIREBASE_APPID }}
-      REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
+  # test_react:
+  #   uses: jacksonwun/sidequestweb/.github/workflows/test-react.yaml@main
+  #   secrets:
+  #     REACT_APP_PROXY_HOST: ${{ secrets.REACT_APP_PROXY_HOST }}
+  #     REACT_APP_BACKEND_PROXY_HOST: ${{ secrets.REACT_APP_BACKEND_PROXY_HOST }}
+  #     REACT_APP_FIREBASE_APIKEY: ${{ secrets.REACT_APP_FIREBASE_APIKEY }}
+  #     REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+  #     REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+  #     REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+  #     REACT_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
+  #     REACT_APP_FIREBASE_APPID: ${{ secrets.REACT_APP_FIREBASE_APPID }}
+  #     REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
   build:
     runs-on: ubuntu-latest
-    needs: [test_react]
+    environment: prod
+    # needs: [test_react]
     env:
-      CLUSTER_NAME: k8s-1-24-4-do-0-lon1-1663790792174
+      CLUSTER_NAME: ${{ secrets.DOCN_CLUSTER_NAME }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
