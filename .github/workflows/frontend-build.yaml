@@ -58,8 +58,8 @@ jobs:
       - name: Update Deployment Secrets 
         run: |
           cat << EOF >> .env.prod
-          REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }}
-          REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_APP_BACKEND_PROXY_HOST }}
+          REACT_APP_PROXY_HOST=${{ secrets.REACT_PROXY_HOST }}
+          REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_BACKEND_PROXY_HOST }}
           EOF
           kubectl delete secret ${{ secrets.DOCN_FRONTEND_SECRET_NAME }}
           kubectl create secret generic ${{ secrets.DOCN_FRONTEND_SECRET_NAME }} --from-env-file=.env.prod
