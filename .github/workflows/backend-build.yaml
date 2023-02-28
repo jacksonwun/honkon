@@ -74,8 +74,8 @@ jobs:
           POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
           REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }}
           EOF
-          kubectl delete secret django-k8s-web-prod-env
-          kubectl create secret generic django-k8s-web-prod-env --from-env-file=honkon/.env.prod
+          kubectl delete secret ${{ secrets.DOCN_BACKEND_SECRET_NAME }}
+          kubectl create secret generic ${{ secrets.DOCN_BACKEND_SECRET_NAME }} --from-env-file=honkon/.env.prod
       - name: Update Deployment image
         run: |
           kubectl set image deployment/django-deployment django-container=registry.digitalocean.com/djangok8s/django-k8s-web:${GITHUB_SHA::7}
