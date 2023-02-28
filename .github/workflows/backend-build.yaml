@@ -39,7 +39,7 @@ jobs:
       - name: Login to DO Container Registry with short-lived creds
         run: doctl registry login --expiry-seconds 1200
       - name: Build Container Image
-        working-directory: ./honkon
+        working-directory: ./backend/honkon
         run: |
           docker build -f Dockerfile --target builder \
             -t registry.digitalocean.com/djangok8s/django-k8s-web:latest \
