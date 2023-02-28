@@ -35,19 +35,19 @@ jobs:
       - name: Install Doctl
         uses: digitalocean/action-doctl@v2
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          token: ${{ secrets.DOCN_ACCESS_TOKEN }}
       - name: Login to DO Container Registry with short-lived creds
         run: doctl registry login --expiry-seconds 1200
       - name: Build Container Image
         working-directory: ./backend/honkon
         run: |
           docker build -f Dockerfile --target builder \
-            -t registry.digitalocean.com/djangok8s/django-k8s-web:latest \
-            -t registry.digitalocean.com/djangok8s/django-k8s-web:${GITHUB_SHA::7} \
+            -t ${{ secrets.DOCN_REGISTRY }} :latest \
+            -t ${{ secrets.DOCN_REGISTRY }} :${GITHUB_SHA::7} \
             .
       - name: Push Image
         run: |
-          docker push registry.digitalocean.com/djangok8s/django-k8s-web --all-tags
+          docker push ${{ secrets.DOCN_REGISTRY }} --all-tags
       - name: K8s cluster kubeconfig file with short-lived creds
         run: |
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
