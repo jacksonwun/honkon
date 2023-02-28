@@ -1,4 +1,4 @@
-name: Backend - Build Docker Container & Push to DO Registry
+name: DOCN - Clean Doctl Registry Garbage
 
 on:
   workflow_call:
