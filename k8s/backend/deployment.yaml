@@ -1,0 +1,33 @@
+###########################
+# Deployment
+###########################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: honkon-django-deployment
+  labels:
+    component: honkon-django-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: honkon-django-deployment
+  template:
+    metadata:
+      labels:
+        component: honkon-django-deployment
+    spec:
+      containers:
+      - name: django-container
+        image: registry.digitalocean.com/honkon/honkonv1:latest
+        command: ["/bin/sh","-c"]
+        args: ["/app/migrate.sh && sh /app/entrypoint.sh"]
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: honkon-backend-prod-env
+        env:
+          - name: PORT
+            value: "8002"
+        ports:
+          - containerPort: 8002

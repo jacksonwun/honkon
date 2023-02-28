@@ -79,12 +79,12 @@ jobs:
           kubectl create secret generic ${{ secrets.DOCN_BACKEND_SECRET_NAME }} --from-env-file=.env.prod
       - name: Update Deployment image
         run: |
-          kubectl set image deployment/django-deployment django-container=${{ vars.DOCN_REGISTRY }}:${GITHUB_SHA::7}
+          kubectl set image deployment/${{ vars.DOCN_BACKEND_DEPLOYMENT }} django-container=${{ vars.DOCN_REGISTRY }}:${GITHUB_SHA::7}
       - name: Wait for rollout
         run: |
-          kubectl rollout status deployment/django-deployment
+          kubectl rollout status deployment/${{ vars.DOCN_BACKEND_DEPLOYMENT }}
       - name: Migrate DB
         run: |
-          export SINGLE_POD_NAME=$(kubectl get pod -l component=django-deployment -o jsonpath="{.items[0].metadata.name}")
+          export SINGLE_POD_NAME=$(kubectl get pod -l component=${{ vars.DOCN_BACKEND_DEPLOYMENT }} -o jsonpath="{.items[0].metadata.name}")
           kubectl exec -i $SINGLE_POD_NAME -- bash /app/migrate.sh
           kubectl exec -i $SINGLE_POD_NAME -- bash /app/collectstatic.sh

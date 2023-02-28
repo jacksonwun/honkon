@@ -49,8 +49,8 @@ jobs:
             --build-arg REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }} \
             --build-arg REACT_APP_FIREBASE_APPID=${{ secrets.REACT_APP_FIREBASE_APPID }} \
             --build-arg REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }} \
-            -t registry.digitalocean.com/djangok8s/django-k8s-web-frontend:latest \
-            -t registry.digitalocean.com/djangok8s/django-k8s-web-frontend:${GITHUB_SHA::7} \
+            -t ${{ vars.DOCN_REGISTRY_FRONTEND }}:latest \
+            -t ${{ vars.DOCN_REGISTRY_FRONTEND }}:${GITHUB_SHA::7} \
             .
         env:
           REACT_APP_PROXY_HOST: ${{ secrets.REACT_APP_PROXY_HOST }}
@@ -85,7 +85,7 @@ jobs:
           kubectl create secret generic ${{ secrets.DOCN_FRONTEND_SECRET_NAME }} --from-env-file=.env.prod
       - name: Update Deployment image
         run: |
-          kubectl set image deployment/react-deployment react-container=registry.digitalocean.com/djangok8s/django-k8s-web-frontend:${GITHUB_SHA::7}
+          kubectl set image deployment/react-deployment react-container=${{ vars.DOCN_REGISTRY_FRONTEND }} :${GITHUB_SHA::7}
       - name: Wait for rollout
         run: |
           kubectl rollout status deployment/react-deployment
