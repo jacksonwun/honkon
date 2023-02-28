@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import styles from "styles/home/feature/featureblog.module.scss";
 
-const ArticleMeta = ({ slug }) => {
+const ArticleMeta = ({ slug }: any) => {
   return (
     <>
       <div className="news-post-wrapper">
