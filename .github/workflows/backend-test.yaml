@@ -7,4 +7,32 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'backend'
+      - 'backend/**'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on 
+    runs-on: ubuntu-latest
+    services:
+      postgres_main:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: djtesting
+        ports:
+          - 5432:5432
+      redis_main:
+        image: redis:6.2.7
+        ports:
+          - 6379:6379
+    env:
+      INTERNAL_IPS: '*'
+      ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+      REDIS_DATABASE_PORT: ${{ secrets.REDIS_DATABASE_PORT }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3

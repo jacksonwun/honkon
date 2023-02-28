@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import { BrowserRouter as Router } from "@types/react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import Banner from "@/components/home/Banner";
 import Feature from "@/components/home/Feature";
