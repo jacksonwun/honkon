@@ -52,8 +52,9 @@ jobs:
         run: |
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
       - name: Update deployment secrets
+        working-directory: ./backend/honkon
         run: |
-          cat << EOF >> honkon/.env.prod
+          cat << EOF >> .env.prod
           PROJECT_NAME=${{ secrets.PROJECT_NAME }}
           ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}
           INTERNAL_IPS=${{ secrets.INTERNAL_IPS }}
@@ -75,7 +76,7 @@ jobs:
           REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }}
           EOF
           kubectl delete secret ${{ secrets.DOCN_BACKEND_SECRET_NAME }}
-          kubectl create secret generic ${{ secrets.DOCN_BACKEND_SECRET_NAME }} --from-env-file=honkon/.env.prod
+          kubectl create secret generic ${{ secrets.DOCN_BACKEND_SECRET_NAME }} --from-env-file=.env.prod
       - name: Update Deployment image
         run: |
           kubectl set image deployment/django-deployment django-container=registry.digitalocean.com/djangok8s/django-k8s-web:${GITHUB_SHA::7}
