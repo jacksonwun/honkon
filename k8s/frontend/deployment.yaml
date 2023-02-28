@@ -23,6 +23,6 @@ spec:
         imagePullPolicy: Always
         envFrom:
           - secretRef:
-              name: honkon-frontend-prod-env 
+              name: honkon-frontend-prod-env
         ports:
           - containerPort: 3000
