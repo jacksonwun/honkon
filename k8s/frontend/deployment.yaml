@@ -1,0 +1,28 @@
+###########################
+# Deployment
+###########################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: honkon-react-deployment
+  labels:
+    component: honkon-react-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: honkon-react-deployment
+  template:
+    metadata:
+      labels:
+        component: honkon-react-deployment
+    spec:
+      containers:
+      - name: react-container
+        image: registry.digitalocean.com/honkon/honkonv1frontend:latest
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: honkon-frontend-prod-env 
+        ports:
+          - containerPort: 3000
