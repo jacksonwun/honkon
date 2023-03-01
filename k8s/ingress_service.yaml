@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress
+  namespace: default
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
@@ -10,26 +11,15 @@ metadata:
 
 spec:
   rules:
-  - host: inexperienceds.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: react-cluster-ip-service
-            port:
-              number: 800
-  - host: django.inexperienceds.com
-    http:
+  - http:
       paths:
       - pathType: Prefix
         path: /
         backend:
           service:
-            name: django-cluster-ip-service
+            name: react-cluster-ip-service
             port:
-              number: 810
+              number: 80
   - host: honkon.life
     http:
       paths:
