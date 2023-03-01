@@ -28,6 +28,6 @@ spec:
               name: honkon-backend-prod-env
         env:
           - name: PORT
-            value: "8002"
+            value: "8000"
         ports:
-          - containerPort: 8002
+          - containerPort: 8000
