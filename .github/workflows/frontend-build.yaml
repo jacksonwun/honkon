@@ -41,7 +41,7 @@ jobs:
       - name: Build Container Image
         working-directory: ./frontend/honkon
         run: |
-          docker build -f Dockerfile --target builder \
+          docker build -f Dockerfile --target runner \
             --build-arg REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }} \
             --build-arg REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_APP_BACKEND_PROXY_HOST }} \
             -t ${{ vars.DOCN_REGISTRY_FRONTEND }}:latest \
