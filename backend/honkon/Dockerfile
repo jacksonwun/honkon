@@ -13,6 +13,8 @@ RUN /opt/venv/bin/pip install pip --upgrade \
     && chmod +x entrypoint.sh \
     && chmod +x migrate.sh
 RUN apt-get update && apt-get install -y vim
+EXPOSE 8000
+
 CMD ["/app/entrypoint.sh"]
 
 ###########
