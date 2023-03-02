@@ -61,7 +61,7 @@ jobs:
           cat << EOF >> .env
           REACT_APP_PROXY_HOST=${{ secrets.REACT_PROXY_HOST }}
           REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_BACKEND_PROXY_HOST }}
-          AWS_S3_FRONTEND_STATIC_HOSTNAME=${{ vars.AWS_S3_FRONTEND_STATIC_HOSTNAME }}
+          REACT_APP_AWS_S3_FRONTEND_STATIC_HOSTNAME=${{ vars.AWS_S3_FRONTEND_STATIC_HOSTNAME }}
           EOF
           kubectl delete secret ${{ secrets.DOCN_FRONTEND_SECRET_NAME }}
           kubectl create secret generic ${{ secrets.DOCN_FRONTEND_SECRET_NAME }} --from-env-file=.env

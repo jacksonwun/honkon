@@ -1,7 +1,7 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      AWS_S3_FRONTEND_STATIC_HOSTNAME: string;
+      REACT_APP_AWS_S3_FRONTEND_STATIC_HOSTNAME: string;
       NODE_ENV: "development" | "production";
       PORT?: string;
       PWD: string;
