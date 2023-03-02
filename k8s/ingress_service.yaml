@@ -7,6 +7,8 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 
 spec:
   ingressClassName: nginx
@@ -20,7 +22,18 @@ spec:
           service:
             name: react-cluster-ip-service
             port:
-              number: 80
+              number: 81
+  - host: uk.honkon.life
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: react-cluster-ip-service
+            port:
+              number: 81
+
 
 
 ---
@@ -32,6 +45,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
 
 spec:
   ingressClassName: nginx
