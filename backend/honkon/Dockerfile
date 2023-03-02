@@ -1,7 +1,6 @@
 ############
 ### Prod ###
 ############
-
 FROM python:3.10.7-slim as builder
 
 COPY . /app
@@ -20,7 +19,6 @@ CMD ["/app/entrypoint.sh"]
 ###########
 ### Dev ###
 ###########
-
 FROM python:3.10.7-slim as compiler
 WORKDIR /app
 RUN python -m venv /opt/venv

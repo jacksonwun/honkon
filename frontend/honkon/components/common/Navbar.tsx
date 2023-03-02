@@ -35,11 +35,11 @@ export default function Navigation() {
         </Navbar.Text>
         <Navbar.Brand href="/" className={`${styles.logo}`}>
           <Image
-            src="/logo.png"
+            src="/logo.gif"
             alt=""
             className="logo"
             width={670}
-            height={60}
+            height={150}
           />
         </Navbar.Brand>
         <Navbar.Text>
