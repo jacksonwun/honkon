@@ -10,7 +10,7 @@ const Banner = () => (
             src="/assets/images/dashboard/star-magazine-1.jpg"
             alt="thumb"
             className="banner-top-thumb"
-            width={150}
+            width={300}
             height={150}
           />
         </div>
@@ -22,7 +22,7 @@ const Banner = () => (
             src="/assets/images/dashboard/star-magazine-2.jpg"
             alt="thumb"
             className="banner-top-thumb"
-            width={150}
+            width={300}
             height={150}
           />
         </div>
@@ -34,7 +34,7 @@ const Banner = () => (
             src="/assets/images/dashboard/star-magazine-3.jpg"
             alt="thumb"
             className="banner-top-thumb"
-            width={150}
+            width={300}
             height={150}
           />
         </div>
@@ -48,7 +48,7 @@ const Banner = () => (
             src="/assets/images/dashboard/star-magazine-4.jpg"
             alt="thumb"
             className="banner-top-thumb"
-            width={150}
+            width={300}
             height={150}
           />
         </div>
