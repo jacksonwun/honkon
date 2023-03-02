@@ -58,12 +58,13 @@ jobs:
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
       - name: Update Deployment Secrets 
         run: |
-          cat << EOF >> .env.prod
+          cat << EOF >> .env
           REACT_APP_PROXY_HOST=${{ secrets.REACT_PROXY_HOST }}
           REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_BACKEND_PROXY_HOST }}
+          AWS_S3_FRONTEND_STATIC_HOSTNAME=${{ vars.AWS_S3_FRONTEND_STATIC_HOSTNAME }}
           EOF
           kubectl delete secret ${{ secrets.DOCN_FRONTEND_SECRET_NAME }}
-          kubectl create secret generic ${{ secrets.DOCN_FRONTEND_SECRET_NAME }} --from-env-file=.env.prod
+          kubectl create secret generic ${{ secrets.DOCN_FRONTEND_SECRET_NAME }} --from-env-file=.env
       - name: Update Deployment image
         run: |
           kubectl set image deployment/${{ vars.DOCN_FRONTEND_DEPLOYMENT }} react-container=${{ vars.DOCN_REGISTRY_FRONTEND }}:${GITHUB_SHA::7}
