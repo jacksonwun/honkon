@@ -36,26 +36,9 @@ COPY --from=builder /app/package.json ./package.json
 USER nextjs
 
 EXPOSE 3000
-
 ENV PORT 3000
 
 CMD ["npm", "start"]
-
-
-# copy from build image
-# COPY --from=build /app/package.json ./package.json
-# COPY --from=build /app/node_modules ./node_modules
-# COPY --from=build /app/.next ./.next
-# COPY --from=build /app/public ./public
-# EXPOSE 3000
-# CMD ["npm", "run", "start"]
-
-# Direct Nginx
-# FROM nginx:1.21.0-alpine as builder
-# COPY --from=build /app/build /usr/share/nginx/html
-# COPY nginx/nginx.conf /etc/nginx/conf.d
-# EXPOSE 3000
-# CMD ["nginx", "-g", "daemon off;"]
 
 ###########
 ### Dev ###
