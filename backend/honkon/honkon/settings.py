@@ -102,6 +102,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
 
+    # Third parties
+    'storages',
+
     # Self
     'articles',
     'articles.api',
