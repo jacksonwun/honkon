@@ -44,6 +44,7 @@ jobs:
           docker build -f Dockerfile --target runner \
             --build-arg REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }} \
             --build-arg REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_APP_BACKEND_PROXY_HOST }} \
+            --build-arg REACT_APP_AWS_S3_FRONTEND_STATIC_HOSTNAME=${{ vars.REACT_APP_AWS_S3_FRONTEND_STATIC_HOSTNAME }} \
             -t ${{ vars.DOCN_REGISTRY_FRONTEND }}:latest \
             -t ${{ vars.DOCN_REGISTRY_FRONTEND }}:${GITHUB_SHA::7} \
             .
