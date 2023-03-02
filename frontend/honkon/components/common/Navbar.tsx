@@ -39,7 +39,7 @@ export default function Navigation() {
             alt=""
             className="logo"
             width={670}
-            height={200}
+            height={60}
           />
         </Navbar.Brand>
         <Navbar.Text>
