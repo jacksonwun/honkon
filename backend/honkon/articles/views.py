@@ -6,9 +6,9 @@ from django.shortcuts import render
 # Create your views here.
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions, generics, mixins
-from .models import Article, Author
+from .models.article import Article, Author
 from .serializers import ArticleSerializer, AuthorSerializer
-from api.mixins import (
+from users.mixins import (
     StaffEditorPermissionMixin,
     UserQuerySetMixin)
 

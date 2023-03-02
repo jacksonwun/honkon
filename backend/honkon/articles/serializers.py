@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 
 from rest_framework import serializers
 from rest_framework.reverse import reverse
-from .models import Article, Author
+from .models.article import Article, Author
 
 class AuthorSerializer(serializers.ModelSerializer):
 
