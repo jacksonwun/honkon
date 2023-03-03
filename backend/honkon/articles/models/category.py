@@ -1,11 +1,13 @@
 from django.core.cache import cache
 from django.db import models
 from django.conf import settings
+
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel, TreeForeignKey
 
 from parler.models import TranslatableModel, TranslatedFields
 from parler.managers import TranslatableManager, TranslatableQuerySet
+
 
 class Category_QuerySet(TranslatableQuerySet):
     def is_public(self):

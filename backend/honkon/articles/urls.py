@@ -1,12 +1,20 @@
 from django.urls import path
 
-from . import views
+from .views.article import article_list_create_view, article_detail_view, article_update_view, article_destroy_view
+from .views.author import author_list_create_view, author_detail_view
+from .views.category import category_list_create_view, category_detail_view
+
 
 urlpatterns = [
-    path('', views.article_list_create_view, name='article-list'),
-    path('<int:pk>/', views.article_detail_view, name='article-detail'),
-    path('<int:pk>/update/', views.article_update_view, name='article-edit'),
-    path('<int:pk>/delete/', views.article_destroy_view),
-    path('author/list/', views.author_list_create_view, name='author-list'),    
-    path('author/<int:pk>/', views.author_detail_view, name='author-detail'),
+    # Article
+    path('article/', article_list_create_view, name='article-list'),
+    path('article/<str:slug>/', article_detail_view, name='article-detail'),
+    path('article/<str:slug>/update/', article_update_view, name='article-edit'),
+    path('article/<str:slug>/delete/', article_destroy_view),
+    # Author
+    path('author/list/', author_list_create_view, name='author-list'),    
+    path('author/<int:pk>/', author_detail_view, name='author-detail'),
+    # Category
+    path('categories/', category_list_create_view, name='category-list'),   
+    path('<str:slug>/', category_detail_view, name='category-detail'),    
 ]

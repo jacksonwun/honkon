@@ -1,12 +1,12 @@
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+User = settings.AUTH_USER_MODEL # auth.User 
 
 from parler.models import TranslatableModel, TranslatedFields
 from parler.managers import TranslatableManager, TranslatableQuerySet
 
-User = settings.AUTH_USER_MODEL # auth.User 
-
+from .author import Author
 from .category import Category
 
 from ckeditor.fields import RichTextField 
@@ -16,14 +16,6 @@ class ArticleTag(models.Model):
 
     def __str__(self):
         return self.tag
-
-class Author(models.Model):
-    author_name = models.CharField(max_length=32, default="Anonymous")
-    about = models.CharField(max_length=256, null=True, blank=True)
-    profile_pic = models.URLField(null=True, blank=True)
-
-    def __str__(self):
-        return self.author_name
 
 class Article_QuerySet(TranslatableQuerySet):
     def is_public(self):
@@ -50,7 +42,7 @@ class Article_manager(TranslatableManager):
 
 
 class Article(TranslatableModel):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, help_text=_('This is the help text'))
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, help_text=_('This is the help text'), related_name='category')
     slug = models.CharField(max_length=255)
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL, related_name="article_user")
     author = models.ForeignKey(Author, null=True, on_delete=models.CASCADE, related_name="article_author")
@@ -74,7 +66,3 @@ class Article(TranslatableModel):
         return None
 
     objects = Article_manager() 
-
-
-
-

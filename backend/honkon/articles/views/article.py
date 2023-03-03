@@ -1,13 +1,10 @@
 from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-
-# Create your views here.
 from django.contrib.auth.models import User, Group
+
 from rest_framework import viewsets, permissions, generics, mixins
-from .models.article import Article, Author
-from .serializers import ArticleSerializer, AuthorSerializer
+
+from ..models.article import Article, Author
+from ..serializers import ArticleSerializer, AuthorSerializer, ArticleListSerializer
 from users.mixins import (
     StaffEditorPermissionMixin,
     UserQuerySetMixin)
@@ -16,7 +13,7 @@ from users.mixins import (
 class ArticleListCreateAPIView(
     generics.ListCreateAPIView):
     queryset = Article.objects.all()
-    serializer_class = ArticleSerializer
+    serializer_class = ArticleListSerializer
 
     def perform_create(self, serializer):
         title = serializer.validated_data.get('title')
@@ -33,7 +30,7 @@ class ArticleDetailAPIView(
     generics.RetrieveAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    lookup_field = 'pk'
+    lookup_field = 'slug'
 
 article_detail_view = ArticleDetailAPIView.as_view()
 
@@ -43,7 +40,7 @@ class ArticleUpdateAPIView(
     generics.UpdateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    lookup_field = 'pk'
+    lookup_field = 'slug'
 
     def perform_update(self, serializer):
         instance = serializer.save()
@@ -58,28 +55,10 @@ class ArticleDestroyAPIView(
     generics.DestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    lookup_field = 'pk'
+    lookup_field = 'slug'
 
     def perform_destroy(self, instance):
         # instance 
         super().perform_destroy(instance)
 
 article_destroy_view = ArticleDestroyAPIView.as_view()
-
-class AuthorDetailAPIView(
-    generics.RetrieveAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-    lookup_field = 'pk'
-
-author_detail_view = AuthorDetailAPIView.as_view()
-
-class AuthorListCreateAPIView(
-    generics.ListCreateAPIView):
-    '''
-    Get All Authors
-    '''
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-
-author_list_create_view = AuthorListCreateAPIView.as_view()
