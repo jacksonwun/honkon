@@ -12,10 +12,10 @@ class AuthorAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request).prefetch_related("article_author")
         return qs
 
-admin.site.register(Article, TranslatableAdmin)
-#@admin.register(Article, TranslatableAdmin)
-#class ArticleAdmin(admin.ModelAdmin):
-#    list_display = ("title",)
+#admin.site.register(Article, TranslatableAdmin)
+@admin.register(Article)
+class ArticleAdmin(TranslatableAdmin):
+    list_display = ("title", "category")
 
     # def get_queryset(self, request):
     #     qs = super().get_queryset(request).select_related("user", "author")
