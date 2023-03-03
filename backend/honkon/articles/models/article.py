@@ -62,7 +62,7 @@ class Article(TranslatableModel):
     pic = models.URLField(max_length=511, null=True)
     publish_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     public = models.BooleanField(default=True)
-    tags = models.ManyToManyField(ArticleTag)
+    tags = models.ManyToManyField(ArticleTag, blank=True)
 
     def __str__(self):
         return self.title
