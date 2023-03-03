@@ -18,14 +18,18 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
+###############
+## VARIABLES ##
+###############
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+DOMAIN_URL = os.getenv("DOMAIN_URL")
+
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
-DOMAIN_URL = os.getenv("DOMAIN_URL")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if str(os.getenv("RAILWAY")) == '1':
@@ -104,6 +108,8 @@ INSTALLED_APPS = [
 
     # Third parties
     'storages',
+    'rosetta',
+    'parler',
 
     # Self
     'articles',
@@ -115,6 +121,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -199,14 +206,32 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
+# language
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
+USE_L10N = True
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en',},
+        {'code': 'zh-hk',},
+    ),
+    'default': {
+        'fallbacks': ['en'],
+        'hide_untranslated': False,   # Default
+    }
+}
+
+from django.utils.translation import gettext_lazy as _
+LANGUAGES = [
+    ('zh-hk', _('Chinese (Hong Kong)')),
+    ('en', _('English')),
+]
+
+# timezone
+TIME_ZONE = 'UTC'
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -222,12 +247,13 @@ AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
 AWS_LOCATION = ''
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
-
-TEMP = os.path.join(BASE_DIR, 'temp')
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+if DEBUG:
+    STATIC_URL = 'static/'
+    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+    TEMP = os.path.join(BASE_DIR, 'temp')
+else:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

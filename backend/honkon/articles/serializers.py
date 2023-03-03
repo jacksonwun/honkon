@@ -3,9 +3,10 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 from .models.article import Article, Author
+import json
+
 
 class AuthorSerializer(serializers.ModelSerializer):
-
     def to_representation(self, obj):
             return obj.author_name
     class Meta:
@@ -14,12 +15,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-    url = serializers.HyperlinkedIdentityField(
-            view_name='api:articles-detail',
-            lookup_field='pk',
-            read_only=True
-    )
-    author = AuthorSerializer("author", read_only=True)
+
     class Meta:
         model = Article
         fields = '__all__'
@@ -30,3 +26,15 @@ class ArticleSerializer(serializers.ModelSerializer):
         if request is None:
             return None
         return reverse("article-edit", kwargs={"pk": obj.pk}, request=request) 
+
+    def to_representation(self, instance):
+        return {
+            'category': str(instance.category),
+            'author': str(instance.author),
+            'title': instance.title,
+            'caption': instance.caption,
+            'content': instance.content,
+            'pic': instance.pic,
+            'publish_time': instance.publish_time,
+            'public': instance.public,
+        }

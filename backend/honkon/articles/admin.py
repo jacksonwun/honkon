@@ -1,4 +1,5 @@
 from django.contrib import admin
+from parler.admin import TranslatableAdmin
 
 from .models.article import Article, Author, ArticleTag
 from .models.category import Category
@@ -11,9 +12,10 @@ class AuthorAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request).prefetch_related("article_author")
         return qs
 
-@admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("title",)
+admin.site.register(Article, TranslatableAdmin)
+#@admin.register(Article, TranslatableAdmin)
+#class ArticleAdmin(admin.ModelAdmin):
+#    list_display = ("title",)
 
     # def get_queryset(self, request):
     #     qs = super().get_queryset(request).select_related("user", "author")

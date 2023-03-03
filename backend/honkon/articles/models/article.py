@@ -1,5 +1,10 @@
 from django.db import models
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
+
+from parler.models import TranslatableModel, TranslatedFields
+from parler.managers import TranslatableManager, TranslatableQuerySet
+
 User = settings.AUTH_USER_MODEL # auth.User 
 
 from .category import Category
@@ -20,7 +25,7 @@ class Author(models.Model):
     def __str__(self):
         return self.author_name
 
-class Article_QuerySet(models.QuerySet):
+class Article_QuerySet(TranslatableQuerySet):
     def is_public(self):
         return self.filter(public=True)
 
@@ -33,7 +38,7 @@ class Article_QuerySet(models.QuerySet):
         return qs
 
 
-class Article_manager(models.Manager):
+class Article_manager(TranslatableManager):
     def get_message():
         pass
 
@@ -44,20 +49,21 @@ class Article_manager(models.Manager):
         return self.get_queryset().search(query, user=user)
 
 
-class Article(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+class Article(TranslatableModel):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, help_text=_('This is the help text'))
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL, related_name="article_user")
     author = models.ForeignKey(Author, null=True, on_delete=models.CASCADE, related_name="article_author")
-    title = models.CharField(max_length=127)
-    caption = models.CharField(max_length=255)
-    content = RichTextField()
+    translations = TranslatedFields(
+        title = models.CharField(max_length=127),
+        caption = models.CharField(max_length=255),
+        content = RichTextField()
+    )
     pic = models.URLField(max_length=511, null=True)
     publish_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     public = models.BooleanField(default=True)
-    tags = models.ManyToManyField(ArticleTag, blank=True, related_name="tags")
-
+    
     def __str__(self):
-        return self.author.author_name
+        return self.title
 
     @property
     def content_adjust(self):
@@ -66,5 +72,7 @@ class Article(models.Model):
         return None
 
     objects = Article_manager() 
+
+
 
 

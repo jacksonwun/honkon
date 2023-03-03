@@ -28,8 +28,8 @@ class ArticleListCreateAPIView(
 article_list_create_view = ArticleListCreateAPIView.as_view()
 
 class ArticleDetailAPIView(
-    UserQuerySetMixin, 
-    StaffEditorPermissionMixin,
+    #UserQuerySetMixin, 
+    #StaffEditorPermissionMixin,
     generics.RetrieveAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
