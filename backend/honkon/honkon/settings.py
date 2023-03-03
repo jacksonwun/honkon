@@ -247,7 +247,7 @@ AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
 AWS_LOCATION = ''
 
-if DEBUG:
+if os.getenv("STATIC_SOURCE"):
     STATIC_URL = 'static/'
     STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
     TEMP = os.path.join(BASE_DIR, 'temp')
