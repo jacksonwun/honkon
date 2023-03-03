@@ -51,6 +51,7 @@ class Article_manager(TranslatableManager):
 
 class Article(TranslatableModel):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, help_text=_('This is the help text'))
+    slug = models.CharField(max_length=255)
     user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL, related_name="article_user")
     author = models.ForeignKey(Author, null=True, on_delete=models.CASCADE, related_name="article_author")
     translations = TranslatedFields(
@@ -61,7 +62,8 @@ class Article(TranslatableModel):
     pic = models.URLField(max_length=511, null=True)
     publish_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     public = models.BooleanField(default=True)
-    
+    tags = models.ManyToManyField(ArticleTag)
+
     def __str__(self):
         return self.title
 
