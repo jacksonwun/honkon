@@ -4,17 +4,33 @@ from django.conf import settings
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel, TreeForeignKey
 
-class CategoryManager(TreeManager):
+from parler.models import TranslatableModel, TranslatedFields
+from parler.managers import TranslatableManager, TranslatableQuerySet
+
+class Category_QuerySet(TranslatableQuerySet):
+    def is_public(self):
+        return self.filter(public=True)
+
+class CategoryManager(TreeManager, TranslatableManager):
     def private_threads(self):
         pass
 
-class Category(MPTTModel):
+    def get_queryset(self, *args,**kwargs):
+        return Category_QuerySet(self.model, using=self._db)
+
+class Category(MPTTModel, TranslatableModel):
     parent = TreeForeignKey(
         "self", null=True, blank=True, related_name="children", on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=255)
     slug = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
+
+    translations = TranslatedFields(
+        name = models.CharField(max_length=255),
+        description = models.TextField(null=True, blank=True),
+        last_thread_title = models.CharField(max_length=255, null=True, blank=True),     
+        last_poster_name = models.CharField(max_length=255, null=True, blank=True)    
+    )
+
     is_closed = models.BooleanField(default=False)
     articles = models.PositiveIntegerField(default=0)
     last_article_on = models.DateTimeField(null=True, blank=True)
@@ -25,7 +41,6 @@ class Category(MPTTModel):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    last_thread_title = models.CharField(max_length=255, null=True, blank=True)
     last_thread_slug = models.CharField(max_length=255, null=True, blank=True)
     last_poster = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -34,7 +49,6 @@ class Category(MPTTModel):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    last_poster_name = models.CharField(max_length=255, null=True, blank=True)
     last_poster_slug = models.CharField(max_length=255, null=True, blank=True)
 
     objects = CategoryManager()

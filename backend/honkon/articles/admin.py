@@ -30,5 +30,5 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ("tag",)
 
 @admin.register(Category)
-class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("name",)
+class CategoryAdmin(TranslatableAdmin):
+    list_display = ("name", "parent")
