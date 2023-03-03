@@ -14,7 +14,7 @@ RUN /opt/venv/bin/pip install pip --upgrade \
 RUN apt-get update && apt-get install -y vim
 EXPOSE 8000
 
-RUN ["/app/collectstatic.sh"]
+CMD ["/app/collectstatic.sh"]
 CMD ["/app/entrypoint.sh"]
 
 ###########
