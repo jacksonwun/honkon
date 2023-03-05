@@ -9,14 +9,21 @@ const nextConfig = {
     prependData: `@import "_mixins.scss";`,
   },
   images: {
+    domains: ["eu-frankfurt.myqcloud.com"],
     loader: "custom",
     loaderFile: "./public/images/loader.ts",
     remotePatterns: [
+      // {
+      //   protocol: "https",
+      //   hostname: "honkon-frontend.s3.eu-west-2.amazonaws.com",
+      //   port: "",
+      //   pathname: "**",
+      // },
       {
         protocol: "https",
-        hostname: "honkon-frontend.s3.eu-west-2.amazonaws.com",
+        hostname: "eu-frankfurt.myqcloud.com",
         port: "",
-        pathname: "/",
+        pathname: "**",
       },
     ],
   },

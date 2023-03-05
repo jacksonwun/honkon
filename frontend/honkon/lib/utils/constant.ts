@@ -1,10 +1,15 @@
-export const SERVER_BASE_URL = `https://${process.env.BACKEND_BASE_URL}`;
+export const SERVER_BASE_URL = `${process.env.NEXT_HTTP}://${process.env.NEXT_PUBLIC_API_URL}:${process.env.NEXT_PUBLIC_API_PORT}`;
 
-export const APP_NAME = `conduit`;
+export const SERVER_API_PORT = `${process.env.NEXT_BACKEND_API_PORT}`;
+
+export const APP_NAME = `honkon`;
 
 export const ARTICLE_QUERY_MAP = {
-  "tab=feed": `${SERVER_BASE_URL}/articles/feed`,
-  "tab=tag": `${SERVER_BASE_URL}/articles/tag`,
+  "tab=allCategory": `${SERVER_BASE_URL}/articles/categories`,
+  "tab=category": `${SERVER_BASE_URL}/articles/`,
+  "tab=article": `${SERVER_BASE_URL}/articles/article`,
+  "tab=allAuthor": `${SERVER_BASE_URL}/articles/author/list`,
+  "tab=author": `${SERVER_BASE_URL}/articles/author`,
 };
 
 export const DEFAULT_PROFILE_IMAGE = `https://static.productionready.io/images/smiley-cyrus.jpg`;
