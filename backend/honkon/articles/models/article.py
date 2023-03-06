@@ -2,12 +2,14 @@ from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 User = settings.AUTH_USER_MODEL # auth.User 
+from django.contrib.contenttypes.models import ContentType
 
 from parler.models import TranslatableModel, TranslatedFields
 from parler.managers import TranslatableManager, TranslatableQuerySet
 
 from .author import Author
 from .category import Category
+from users.upload.models import Image
 
 from ckeditor.fields import RichTextField 
 
@@ -51,7 +53,7 @@ class Article(TranslatableModel):
         caption = models.CharField(max_length=255),
         content = RichTextField()
     )
-    pic = models.URLField(max_length=511, null=True)
+    pic = models.URLField(max_length=511, null=True, blank=True)
     publish_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     public = models.BooleanField(default=True)
     tags = models.ManyToManyField(ArticleTag, blank=True)
@@ -65,4 +67,16 @@ class Article(TranslatableModel):
             return self.content + '  Adjusted'
         return None
 
-    objects = Article_manager() 
+    def save(self, *args, **kwargs):
+        if not self.slug[-1].isdigit():
+            self.slug = self.slug + '-' + str(randrange(10000,99999))
+        if not self.pic:
+            print('save')
+            #self.pic = Image.objects.filter(
+            #     object_id=self.id,
+            #     content_type_id=ContentType.objects.get_for_model(self).id
+            # )
+        super().save(*args, **kwargs)
+
+    objects = Article_manager()
+
