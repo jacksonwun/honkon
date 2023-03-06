@@ -4,7 +4,8 @@ from django.forms import inlineformset_factory
 from django.contrib.contenttypes.models import ContentType
 from parler.admin import TranslatableAdmin
 
-from .models.article import Article, Author, ArticleTag
+from .models.article import Article, Author
+from .models.tag import ArticleTag
 from .models.category import Category
 
 from users.upload.models import Image
@@ -37,7 +38,7 @@ class ArticleAdmin(TranslatableAdmin):
     #     #formset.post_save_formset(request, form, self, change)        
 
 @admin.register(ArticleTag)
-class ArticleAdmin(admin.ModelAdmin):
+class TagAdmin(admin.ModelAdmin):
     list_display = ("tag",)
 
 @admin.register(Category)

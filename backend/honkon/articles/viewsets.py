@@ -1,6 +1,8 @@
 from rest_framework import mixins, viewsets, permissions
 from api.permissions import IsOwnerOrReadOnly, IsStaffEditorPermission
+
 from .models import Article
+from .models.tag import ArticleTag
 from .serializers.article import ArticleSerializer
 
 class ArticleViewSet(viewsets.ModelViewSet):

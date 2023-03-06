@@ -14,12 +14,6 @@ from users.upload.models import Image
 from ckeditor.fields import RichTextField
 from random import randrange
 
-class ArticleTag(models.Model):
-    tag = models.CharField(max_length=32)
-
-    def __str__(self):
-        return self.tag
-
 class Article_QuerySet(TranslatableQuerySet):
     def is_public(self):
         return self.filter(public=True)

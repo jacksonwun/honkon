@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions, generics, mixins
 
-from ..models.article import Author
+from ..models.author import Author
 from ..serializers.author import AuthorSerializer
 
 class AuthorDetailAPIView(
