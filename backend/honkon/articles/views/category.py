@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions, generics, mixins
 
 from ..models.category import Category
-from ..serializers import CategoryListSerializer, CategorySerializer
+from ..serializers.category import CategoryListSerializer, CategorySerializer
 from users.mixins import (
     StaffEditorPermissionMixin,
     UserQuerySetMixin)

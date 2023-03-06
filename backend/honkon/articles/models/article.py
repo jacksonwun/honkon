@@ -11,7 +11,8 @@ from .author import Author
 from .category import Category
 from users.upload.models import Image
 
-from ckeditor.fields import RichTextField 
+from ckeditor.fields import RichTextField
+from random import randrange
 
 class ArticleTag(models.Model):
     tag = models.CharField(max_length=32)
@@ -56,7 +57,7 @@ class Article(TranslatableModel):
     pic = models.URLField(max_length=511, null=True, blank=True)
     publish_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     public = models.BooleanField(default=True)
-    tags = models.ManyToManyField(ArticleTag, blank=True)
+    #tags = models.ManyToManyField(ArticleTag, blank=True)
 
     def __str__(self):
         return self.title
