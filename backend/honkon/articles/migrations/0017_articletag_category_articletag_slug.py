@@ -11,22 +11,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='articletag',
-            fields=[
-                ('tag', models.CharField(max_length=32)),
-            ],
-        ),
-        migrations.AddField(
-            model_name='articletag',
-            name='category',
-            field=models.ForeignKey(default='', help_text='This is the help text', on_delete=django.db.models.deletion.CASCADE, related_name='tag_category', to='articles.category'),
-            preserve_default=False,
-        ),
-        migrations.AddField(
-            model_name='articletag',
-            name='slug',
-            field=models.SlugField(default='', max_length=32),
-            preserve_default=False,
-        ),
+
     ]
