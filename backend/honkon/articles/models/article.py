@@ -10,7 +10,6 @@ from .author import Author
 from .category import Category
 
 from ckeditor.fields import RichTextField 
-from random import randrange
 
 class ArticleTag(models.Model):
     tag = models.CharField(max_length=32)
@@ -66,10 +65,4 @@ class Article(TranslatableModel):
             return self.content + '  Adjusted'
         return None
 
-    def save(self, *args, **kwargs):
-        if not self.slug[-1].isdigit():
-            self.slug = self.slug + '-' + str(randrange(10000,99999))
-        super().save(*args, **kwargs)
-
-    objects = Article_manager()
-
+    objects = Article_manager() 

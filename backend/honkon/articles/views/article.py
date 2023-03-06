@@ -3,8 +3,6 @@ from django.contrib.auth.models import User, Group
 
 from rest_framework import viewsets, permissions, generics, mixins
 
-from random import randrange
-
 from ..models.article import Article, Author
 from ..serializers import ArticleSerializer, AuthorSerializer, ArticleListSerializer
 from users.mixins import (
@@ -27,13 +25,12 @@ class ArticleListCreateAPIView(
 article_list_create_view = ArticleListCreateAPIView.as_view()
 
 class ArticleDetailAPIView(
+    #UserQuerySetMixin, 
+    #StaffEditorPermissionMixin,
     generics.RetrieveAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     lookup_field = 'slug'
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
 article_detail_view = ArticleDetailAPIView.as_view()
 
