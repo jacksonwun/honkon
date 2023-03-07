@@ -33,5 +33,14 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ['slug','category','articles','last_article_on','last_thread_slug','parent','last_poster','last_article']
+        fields = [
+            'slug',
+            'category',
+            'description',
+            'articles',
+            'last_article_on',
+            'last_thread_slug',
+            'parent',
+            'last_poster',
+            'last_article']
         ordering = ['-publish_time']

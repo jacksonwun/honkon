@@ -5,6 +5,7 @@ export interface ThumbBox {
   picURL: string;
   slug: string;
   des: string | null;
+  isLarge: boolean | null;
 }
 
 export interface ThumbBoxWithDes {

@@ -17,7 +17,7 @@
     overflow: hidden;
     @include desktop() {
         width: 50%;
-        height: 50%;
+        height: 50vh;
         float: left;
         padding: 0 .5rem 0 0;
         img {
@@ -27,8 +27,10 @@
 }
 
 .thumbBoxDes {
+    height: 2rem;
+    width: 98%;
     font-weight: 300;
-    font-size: clamp(2rem, 5vw , 3rem);
+    font-size: clamp(0.5rem, 0.8vw , 2rem);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -84,4 +86,33 @@
 
 .capitalize {
     text-transform: capitalize
+}
+
+.thumbBoxTitle {
+    height: 3.5rem;
+    width: 98%;
+    font-weight: 600;
+    font-size: clamp(1rem, 1vw , 1.1rem);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    @supports (-webkit-line-clamp: 3) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.thumbBoxLargeImage {
+    height: 25rem;
+}
+.thumbBoxLargeTitle {
+    margin-top: 5vh;
+}
+.thumbBoxLargeDescription {
+    margin-top: 5vh;
 }

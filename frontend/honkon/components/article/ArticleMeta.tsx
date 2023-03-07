@@ -16,7 +16,7 @@ const ArticleMeta = ({ article }: any) => {
           <h1 className="text-center">{article.title}</h1>
           <div className="text-center">
             <a
-              href={`/article/${article.category}`}
+              href={`/article/${article.category_slug}`}
               className="btn btn-dark font-weight-bold mb-4 text-capitalize"
             >
               {article.category}

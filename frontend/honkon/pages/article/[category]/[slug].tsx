@@ -15,14 +15,8 @@ const ArticlePage = (initialArticle: any) => {
   const slug = router.query.slug as string;
 
   const { data: fetchedArticle, error: error } = useSWR(
-    `http://localhost:8000/articles/article/met-office-uk-snow-verdict-country-set-cold-snap`,
-    async () => {
-      const response = await fetch(
-        `http://localhost:8000/articles/article/met-office-uk-snow-verdict-country-set-cold-snap`
-      );
-      const data = response.json();
-      return data;
-    }
+    `${ARTICLE_QUERY_MAP["tab=article"]}}/${slug}/`,
+    fetcher
   );
 
   const article: IArticle = fetchedArticle || initialArticle;

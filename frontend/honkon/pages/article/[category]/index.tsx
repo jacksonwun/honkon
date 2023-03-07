@@ -28,14 +28,30 @@ const CategoryPage = (initialCategory: any) => {
 
   const data: ICategory = fetchedArticle || initialCategory;
 
-  const ThumbDesHtml = (num: number) => {
+  const ThumbLargeHtml = (num: number) => {
     return (
-      <ThumbBoxWithDes
+      <ThumbBox
         cat={data ? data["category"][num]["category"] : ""}
+        catSlug={data ? data["category"][num]["category_slug"] : ""}
         title={data ? data["category"][num]["title"] : ""}
         picURL={data ? data["category"][num]["pic"] : ""}
         slug="japan-cancels-cherry-blossom"
         des={data ? data["category"][num]["caption"] : ""}
+        isLarge={true}
+      />
+    );
+  };
+
+  const ThumbDesHtml = (num: number) => {
+    return (
+      <ThumbBox
+        cat={data ? data["category"][num]["category"] : ""}
+        catSlug={data ? data["category"][num]["category_slug"] : ""}
+        title={data ? data["category"][num]["title"] : ""}
+        picURL={data ? data["category"][num]["pic"] : ""}
+        slug="japan-cancels-cherry-blossom"
+        des={data ? data["category"][num]["caption"] : ""}
+        isLarge={null}
       />
     );
   };
@@ -49,6 +65,7 @@ const CategoryPage = (initialCategory: any) => {
         picURL={data ? data["category"][num]["pic"] : ""}
         slug={data ? data["category"][num]["slug"] : ""}
         des={null}
+        isLarge={null}
       />
     );
   };
@@ -58,24 +75,17 @@ const CategoryPage = (initialCategory: any) => {
       <div className="row">
         <div className="col-sm-12">
           <div className="text-center">
-            <h1 className="text-center mt-5">Category List: {category}</h1>
-            <p className="text-secondary fs-15">
-              This text can be added in the category Description field in
-              dashboard
-            </p>
+            <h1 className={`text-center mt-5 ${styles.capitalize}`}>
+              {category}
+            </h1>
+            <p className="text-secondary fs-15">{data.description}</p>
           </div>
           <h5 className="text-muted font-weight-medium mb-3">World News</h5>
         </div>
       </div>
       <div className="row">
         <div className="col-lg-7">
-          <ThumbBoxLarge
-            cat={data ? data["category"][0]["category"] : ""}
-            title={data ? data["category"][0]["title"] : ""}
-            picURL={data ? data["category"][0]["pic"] : ""}
-            slug="japan-cancels-cherry-blossom"
-            des={data ? data["category"][0]["caption"] : ""}
-          />
+          <div className={styles.thumbBox}>{ThumbLargeHtml(0)}</div>
         </div>
         <div className="col-lg-5">
           <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(0)}</div>
