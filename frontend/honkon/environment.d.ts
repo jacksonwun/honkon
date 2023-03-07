@@ -4,7 +4,7 @@ declare global {
       NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME: string;
       NEXT_PUBLIC_API_URL: string;
       NEXT_PUBLIC_API_PORT: number;
-      NEXT_HTTP: string;
+      NEXT_PUBLIC_HTTP: string;
       NODE_ENV: "development" | "production";
       PORT?: string;
       PWD: string;

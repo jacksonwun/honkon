@@ -20,6 +20,7 @@ class ArticleSerializer(serializers.BaseSerializer):
         return {
             'category': str(instance.category),
             'category_url': self.get_edit_url(instance),
+            'slug': instance.slug,
             'author': str(instance.author),
             'title': instance.title,
             'caption': instance.caption,
@@ -51,6 +52,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         return {
             'category': str(instance.category),
+            'category_slug': str(instance.category.slug),
+            'slug': instance.slug,
             'author': str(instance.author),
             'title': instance.title,
             'caption': instance.caption,

@@ -36,7 +36,10 @@ if str(os.getenv("RAILWAY")) == '1':
     RAILWAY = True
 else:
     RAILWAY = False
-
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    'localhost'
+)
 if str(os.getenv("DEBUG")) == '1':
     DEBUG = True
     DJANGO_CPROFILE_MIDDLEWARE_REQUIRE_STAFF = False
@@ -44,6 +47,8 @@ if str(os.getenv("DEBUG")) == '1':
         'INTERCEPT_REDIRECTS': False,
     }
     CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ALLOW_HEADERS = "access-control-allow-origin"
+    CORS_ALLOWED_ORIGINS = ['http://*','http://127.0.0.1','http://localhost','https://localhost', "http://localhost:8000",    "http://localhost:3000",'http://127.0.0.1:8000','http://127.0.0.1:3000']
     NOSE_ARGS = ['--nocapture',
                 '--nologcapture',]
     ALLOWED_HOSTS = ['*']
@@ -107,6 +112,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     # Third parties
+    'corsheaders',
     'storages',
     'rosetta',
     'parler',

@@ -1,46 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import useSWR, { Fetcher } from "swr";
 import Link from "next/link";
 import Image from "next/image";
+import { fetcher } from "../../../lib/utils/fetcher";
 
 import ThumbBox from "@/components/common/ThumbBox";
 import ThumbBoxWithDes from "@/components/common/ThimbBoxWithDes";
 import ThumbBoxLarge from "@/components/common/ThumbBoxLarge";
 
+import ArticleAPI from "../../../lib/api/article";
 import styles from "styles/Article.module.scss";
+import { ARTICLE_QUERY_MAP } from "../../../lib/utils/constant";
+import { getQuery } from "../../../lib/utils/getQuery";
+import { ICategory } from "@/lib/type/articleType";
 
-export default function PostPage() {
+const CategoryPage = (initialCategory: any) => {
   const router = useRouter();
   const category = router.query.category as string;
-  const APIKey = "681364f2de7f4226ac8dc47d35f283bb";
+  const limit = 10;
+  const page = 1;
 
-  const [data, setData] = useState();
+  const { data: fetchedArticle } = useSWR(
+    `http://localhost:8000/articles/discount`,
+    fetcher
+  );
 
-  useEffect(() => {
-    const getNewsAsync = async () => {
-      const resopnse = await fetch(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=681364f2de7f4226ac8dc47d35f283bb",
-        { method: "GET", headers: { "x-api-key": APIKey } }
-      );
-      const resopnseJson = await resopnse.json();
-      console.log("json", resopnseJson);
-      if (resopnseJson["status"] == "ok") {
-        setData(resopnseJson);
-      }
-    };
-    getNewsAsync();
-  }, []);
-
-  console.log(data);
+  const data: ICategory = fetchedArticle || initialCategory;
 
   const ThumbDesHtml = (num: number) => {
     return (
       <ThumbBoxWithDes
-        cat={data ? data["articles"][num]["topic"] : ""}
-        title={data ? data["articles"][num]["title"] : ""}
-        picURL={data ? data["articles"][num]["media"] : ""}
+        cat={data ? data["category"][num]["category"] : ""}
+        title={data ? data["category"][num]["title"] : ""}
+        picURL={data ? data["category"][num]["pic"] : ""}
         slug="japan-cancels-cherry-blossom"
-        des={data ? data["articles"][num]["excerpt"] : ""}
+        des={data ? data["category"][num]["caption"] : ""}
       />
     );
   };
@@ -48,10 +43,12 @@ export default function PostPage() {
   const ThumbHtml = (num: number) => {
     return (
       <ThumbBox
-        cat={data ? data["articles"][num]["topic"] : ""}
-        title={data ? data["articles"][num]["title"] : ""}
-        picURL={data ? data["articles"][num]["media"] : ""}
-        slug="japan-cancels-cherry-blossom"
+        cat={data ? data["category"][num]["category"] : ""}
+        catSlug={data ? data["category"][num]["category_slug"] : ""}
+        title={data ? data["category"][num]["title"] : ""}
+        picURL={data ? data["category"][num]["pic"] : ""}
+        slug={data ? data["category"][num]["slug"] : ""}
+        des={null}
       />
     );
   };
@@ -73,11 +70,11 @@ export default function PostPage() {
       <div className="row">
         <div className="col-lg-7">
           <ThumbBoxLarge
-            cat={data ? data["articles"][0]["topic"] : ""}
-            title={data ? data["articles"][0]["title"] : ""}
-            picURL={data ? data["articles"][0]["media"] : ""}
+            cat={data ? data["category"][0]["category"] : ""}
+            title={data ? data["category"][0]["title"] : ""}
+            picURL={data ? data["category"][0]["pic"] : ""}
             slug="japan-cancels-cherry-blossom"
-            des={data ? data["articles"][0]["des"] : ""}
+            des={data ? data["category"][0]["caption"] : ""}
           />
         </div>
         <div className="col-lg-5">
@@ -94,24 +91,29 @@ export default function PostPage() {
       </div>
       <div className="row">
         <ul className={styles.thumbBoxTable}>
-          <li className={styles.thumbBoxList}>{ThumbHtml(4)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(5)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(6)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(7)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(8)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(9)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(10)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(11)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(12)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(13)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(14)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(15)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(16)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(17)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(18)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(19)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(0)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(1)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(2)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(3)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(0)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(1)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(2)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(3)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(0)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(1)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(2)}</li>
+          <li className={styles.thumbBoxList}>{ThumbHtml(3)}</li>
         </ul>
       </div>
     </div>
   );
-}
+};
+
+CategoryPage.getInitialProps = async ({
+  query: { category, page, limit },
+}: any) => {
+  const { data } = await ArticleAPI.byCategory(category, page, limit);
+  return data;
+};
+
+export default CategoryPage;

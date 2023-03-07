@@ -74,3 +74,14 @@
     text-decoration: none;
     color: gray
 }
+
+.thumbBoxImage {
+    min-width: 25vw;
+    max-width: 25vw;
+    min-height: 25vh;
+    max-height: 25vh;
+}
+
+.capitalize {
+    text-transform: capitalize
+}

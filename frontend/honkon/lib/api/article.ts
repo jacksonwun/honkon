@@ -3,15 +3,15 @@ import axios from "axios";
 import { SERVER_BASE_URL } from "../utils/constant";
 import { getQuery } from "../utils/getQuery";
 
-import { Article } from "../type/articleType";
+import { IArticle } from "../type/articleType";
 import { ARTICLE_QUERY_MAP } from "../utils/constant";
 
 const ArticleAPI = {
-  all: (page: number, limit = 10) =>
-    axios.get(`${SERVER_BASE_URL}/articles?${getQuery(limit, page)}`),
+  byCategory: (category: string, page: number, limit = 10) =>
+    axios.get(`${ARTICLE_QUERY_MAP["tab=byCategory"]}/${category}/`),
 
   get: (slug: string) =>
-    axios.get(`${ARTICLE_QUERY_MAP["tab=article"]}/${slug}`),
+    axios.get(`${ARTICLE_QUERY_MAP["tab=article"]}/${slug}/`),
 
   byAuthor: (author: string, page = 0, limit = 5) =>
     axios.get(

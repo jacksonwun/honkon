@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import styles from "styles/home/feature/featureblog.module.scss";
 import { parse } from "node-html-parser";
@@ -15,7 +16,7 @@ const ArticleMeta = ({ article }: any) => {
           <h1 className="text-center">{article.title}</h1>
           <div className="text-center">
             <a
-              href="#"
+              href={`/article/${article.category}`}
               className="btn btn-dark font-weight-bold mb-4 text-capitalize"
             >
               {article.category}
