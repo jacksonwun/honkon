@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions, generics, mixins
 
 from ..models.tag import ArticleTag
-from ..serializers.tag import TagSerializer
+from ..serializers.tag import TagSerializer, TagListSerializer
 
 class TagDetailAPIView(
     generics.RetrieveAPIView):
@@ -17,6 +17,6 @@ class TagListCreateAPIView(
     Get All Authors
     '''
     queryset = ArticleTag.objects.all()
-    serializer_class = TagSerializer
+    serializer_class = TagListSerializer
 
 tag_list_create_view = TagListCreateAPIView.as_view()

@@ -40,7 +40,6 @@ class ArticleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = '__all__'
-        #exclude = ('user', 'public')
         ordering = ['-publish_time']
 
     def get_edit_url(self, obj):
