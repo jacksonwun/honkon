@@ -39,33 +39,33 @@ const ArticlePage = (initialArticle: IArticle) => {
   );
 };
 
-ArticlePage.getInitialProps = async ({ query: { slug } }: any) => {
-  const { data } = await ArticleAPI.get(slug);
-  return data;
-};
-
-export default ArticlePage;
-
-export const getStaticPaths = ({ locales, context }: any) => {
-  console.log(locales, context);
+export async function getStaticPaths({ locales }: any) {
+  console.log(locales);
   return {
     paths: [
       // if no `locale` is provided only the defaultLocale will be generated
       {
         params: {
-          slug: context.params.slug,
-          category: context.params.category,
+          category: "123",
+          slug: "123",
         },
         locale: "en",
       },
       {
         params: {
-          slug: context.params.slug,
-          category: context.params.category,
+          slug: "123",
+          category: "123",
         },
         locale: "zh-hk",
       },
     ],
     fallback: true,
   };
+}
+
+ArticlePage.getStaticProps = async ({ query: { slug } }: any) => {
+  const { data } = await ArticleAPI.get(slug);
+  return data;
 };
+
+export default ArticlePage;
