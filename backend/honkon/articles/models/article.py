@@ -3,6 +3,8 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 User = settings.AUTH_USER_MODEL # auth.User 
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin.decorators import display
+from django.template.loader import get_template
 
 from parler.models import TranslatableModel, TranslatedFields
 from parler.managers import TranslatableManager, TranslatableQuerySet
@@ -75,5 +77,12 @@ class Article(TranslatableModel):
             # )
         super().save(*args, **kwargs)
 
+    @display(description='Preview')
+    def my_image_thumbnail(self):
+        return get_template('my_image_thumbnail_template.html').render({
+            'field_name': 'pic',
+            'src': self.pic if self.pic else None,
+        })
+    
     objects = Article_manager()
 

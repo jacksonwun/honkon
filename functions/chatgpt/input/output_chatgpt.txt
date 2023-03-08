@@ -1,0 +1,15 @@
+{'English Title': 'Man left fighting for his life in horror South London robbery after 
+victim’s head was bashed in with a metal pole', 'Chinese Title': '男子遭南倫敦搶劫，頭 
+部被金屬棍擊打後命懸一線', 'slug': 'man-left-fighting-for-his-life-in-horror-south-london-robbery-after-victims-head-was-bashed-in-with-a-metal-pole', 'English Description': 
+'A man was left fighting for his life in a horrific robbery in South London after being hit over the head with a metal pole.', 'Chinese Description': '一名男子在南倫敦被金屬 
+棍擊打後，命懸一線，經歷了可怕的搶劫。', 'English Content': 'A man was left fighting for his life in a horrific robbery in South London after being hit over the head with a metal pole. The incident took place at Rushey Green, Lewisham, where the victim was attacked from behind and hit repeatedly before the assailant stole his bag and fled the scene on a bus route 185 towards Victoria. The victim, in his 20s, was rushed to the hospital where a CT scan showed that he had suffered a bleed on the brain and his injuries at the time were classified as life-threatening. Thankfully the victim has since been discharged from the hospital after surviving the brutal attack. \n\nPolice are investigating the violent robbery and have released an image of the culprit who is wanted for questioning. The image shows a man who police believe could provide them with vital information that will help them solve the crime. Detective Sergeant Laura Warden, from the South East area's Robbery Squad, said, "This was an extremely violent robbery, which left the victim fighting for his life. We are determined to bring the person responsible for this heinous crime to justice. We have now released an image of a man we would like to speak to in connection with the robbery. It is a very clear image, so if that is you 
+in the picture or if you know who it is, then please contact us as soon as possible." \n\nAnyone with any information that could assist in the investigation is urged to contact the police or call independent charity Crimestoppers anonymously on 0800 555 111. ', 'Chinese Content': '一名男子在南倫敦被金屬棍擊打後，命懸一線，經歷了可怕的搶劫。這起事
+件發生在 Lewisham 的 Rushey Green，受害人被從後面襲擊，並且被反覆攻擊多次，後來搶匪搶走
+了他的包並逃離了現場，搭乘185路公交車開走前往維多利亞方向。受害人為20多歲，被送往醫院進
+行 CT 掃描檢查，結果發現他的腦部有出血現象，當時的傷勢被歸類為危及生命。幸運的是，受害 
+者在經歷了這種野蠻的襲擊後從醫院出院了。\n\n警方正在調查這起暴力搶劫事件，已經發佈了嫌 
+疑人的圖片，並呼籲人們提供線索。警方相信這張圖片可以提供有關這起犯罪的重要信息。東南地 
+區搶劫隊的Laura Warden探長說:“這是一起非常暴力的搶劫案，使受害人生命垂危。我們決心讓負 
+責這一處罪行的人受到懲罰。我們現在已經發佈了一張我們想與搶劫案有關的人的照片。這是一張 
+非常清晰的圖片，如果你在這張照片上或你知道這是誰，請儘快聯繫我們。”\n\n任何可以協助調查
+的信息，請聯繫警方，或匿名致電獨立慈善組織犯罪熱線0800 555 111。'}

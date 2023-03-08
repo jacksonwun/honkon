@@ -42,7 +42,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
         fields = '__all__'
-        ordering = ['-publish_time']
+        ordering = ['publish_time']
 
     def get_edit_url(self, obj):
         request = self.context.get('request') # self.request

@@ -11,61 +11,69 @@ import ThumbBoxLarge from "@/components/common/ThumbBoxLarge";
 
 import ArticleAPI from "../../../lib/api/article";
 import styles from "styles/Article.module.scss";
-import { ARTICLE_QUERY_MAP } from "../../../lib/utils/constant";
+import { ARTICLE_QUERY_MAP,  SERVER_BASE_URL, } from "../../../lib/utils/constant";
 import { getQuery } from "../../../lib/utils/getQuery";
-import { ICategory } from "@/lib/type/articleType";
+import { ICategory, IthumbBox } from "@/lib/type/articleType";
+
 
 const CategoryPage = (initialCategory: any) => {
   const router = useRouter();
   const category = router.query.category as string;
-  const limit = 10;
-  const page = 1;
+  const locale = router.query.locale as string;
 
   const { data: fetchedArticle } = useSWR(
-    `http://localhost:8000/articles/discount`,
+    `${SERVER_BASE_URL}/${locale}/articles/${category}/`,
     fetcher
   );
 
   const data: ICategory = fetchedArticle || initialCategory;
+  console.log(data)
 
-  const ThumbLargeHtml = (num: number) => {
+  function RadomNumber() {
+    return data["category"].length
+  }
+
+  const ThumbLargeHtml = (thumbBoxJson: IthumbBox) => {
     return (
       <ThumbBox
-        cat={data ? data["category"][num]["category"] : ""}
-        catSlug={data ? data["category"][num]["category_slug"] : ""}
-        title={data ? data["category"][num]["title"] : ""}
-        picURL={data ? data["category"][num]["pic"] : ""}
-        slug="japan-cancels-cherry-blossom"
-        des={data ? data["category"][num]["caption"] : ""}
+      cat={thumbBoxJson ? thumbBoxJson["category"] : ""}
+      catSlug={thumbBoxJson ? thumbBoxJson["category_slug"] : ""}
+      slug={thumbBoxJson ? thumbBoxJson["slug"] : ""}
+      
+      title={thumbBoxJson ? thumbBoxJson["title"] : ""}
+      des={thumbBoxJson ? thumbBoxJson["caption"] : ""}        
+      picURL={thumbBoxJson ? thumbBoxJson["pic"] : ""}
         isLarge={true}
       />
     );
   };
 
-  const ThumbDesHtml = (num: number) => {
+  const ThumbDesHtml = (thumbBoxJson: IthumbBox) => {
     return (
       <ThumbBox
-        cat={data ? data["category"][num]["category"] : ""}
-        catSlug={data ? data["category"][num]["category_slug"] : ""}
-        title={data ? data["category"][num]["title"] : ""}
-        picURL={data ? data["category"][num]["pic"] : ""}
-        slug="japan-cancels-cherry-blossom"
-        des={data ? data["category"][num]["caption"] : ""}
+        cat={thumbBoxJson ? thumbBoxJson["category"] : ""}
+        catSlug={thumbBoxJson ? thumbBoxJson["category_slug"] : ""}
+        slug={thumbBoxJson ? thumbBoxJson["slug"] : ""}
+        
+        title={thumbBoxJson ? thumbBoxJson["title"] : ""}
+        des={thumbBoxJson ? thumbBoxJson["caption"] : ""}        
+        picURL={thumbBoxJson ? thumbBoxJson["pic"] : ""}
         isLarge={null}
       />
     );
   };
 
-  const ThumbHtml = (num: number) => {
+  const ThumbHtml = (thumbBoxJson: IthumbBox) => {
     return (
       <ThumbBox
-        cat={data ? data["category"][num]["category"] : ""}
-        catSlug={data ? data["category"][num]["category_slug"] : ""}
-        title={data ? data["category"][num]["title"] : ""}
-        picURL={data ? data["category"][num]["pic"] : ""}
-        slug={data ? data["category"][num]["slug"] : ""}
-        des={null}
-        isLarge={null}
+      cat={thumbBoxJson ? thumbBoxJson["category"] : ""}
+      catSlug={thumbBoxJson ? thumbBoxJson["category_slug"] : ""}
+      slug={thumbBoxJson ? thumbBoxJson["slug"] : ""}
+      
+      title={thumbBoxJson ? thumbBoxJson["title"] : ""}       
+      picURL={thumbBoxJson ? thumbBoxJson["pic"] : ""}
+      des={null}
+      isLarge={null}
       />
     );
   };
@@ -78,20 +86,23 @@ const CategoryPage = (initialCategory: any) => {
             <h1 className={`text-center mt-5 ${styles.capitalize}`}>
               {category}
             </h1>
-            <p className="text-secondary fs-15">{data.description}</p>
+            <div className="text-secondary fs-15">{data.description}</div>
           </div>
-          <h5 className="text-muted font-weight-medium mb-3">World News</h5>
+          <h5 className="text-muted font-weight-medium mb-3">Feature</h5>
         </div>
       </div>
       <div className="row">
         <div className="col-lg-7">
-          <div className={styles.thumbBox}>{ThumbLargeHtml(0)}</div>
+          <div className={styles.thumbBox}>{data && ThumbLargeHtml(data.category[0])}</div>
         </div>
         <div className="col-lg-5">
-          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(0)}</div>
-          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(1)}</div>
-          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(2)}</div>
-          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(3)}</div>
+          {data && <>
+          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(data.category[1])}</div>
+          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(data.category[2])}</div>
+          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(data.category[3])}</div>
+          <div className={styles.thumbBoxWithDesList}>{ThumbDesHtml(data.category[4])}</div>          
+          </>
+          }
         </div>
       </div>
       <div className="row mt-5">
@@ -101,18 +112,13 @@ const CategoryPage = (initialCategory: any) => {
       </div>
       <div className="row">
         <ul className={styles.thumbBoxTable}>
-          <li className={styles.thumbBoxList}>{ThumbHtml(0)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(1)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(2)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(3)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(0)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(1)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(2)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(3)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(0)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(1)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(2)}</li>
-          <li className={styles.thumbBoxList}>{ThumbHtml(3)}</li>
+        {data && <>
+          {data.category.map(function(object: IthumbBox, i:number){
+            console.log(object)
+              return <li className={styles.thumbBoxList}>{ThumbHtml(object)}</li>;
+          })}         
+        </>}
+
         </ul>
       </div>
     </div>

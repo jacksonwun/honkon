@@ -14,7 +14,7 @@ class CategoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
-        ordering = ['-publish_time']
+        ordering = ['publish_time']
 
     def get_edit_url(self, obj):
         request = self.context.get('request') # self.request
@@ -43,4 +43,4 @@ class CategorySerializer(serializers.ModelSerializer):
             'parent',
             'last_poster',
             'last_article']
-        ordering = ['-publish_time']
+        ordering = ['publish_time']

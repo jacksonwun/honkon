@@ -22,9 +22,25 @@ class ImageInline(GenericTabularInline):
 class ArticleAdmin(TranslatableAdmin):
     list_display = ("title", "category")
     search_fields = ['slug', "title", "category"]
+    fields=(
+        'category',
+        'slug',
+        'author',
+        'title',
+        'caption',
+        'content',
+        'public',
+        # Image field
+        'my_image_thumbnail', 
+        'pic',
+        'tags'
+        )
+    readonly_fields=('my_image_thumbnail',)
+
     inlines = [
         ImageInline,
     ]
+
 
     # def save_model(self, request, obj, form, change):
     #     print('1')
