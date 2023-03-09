@@ -1,8 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
 from .models import Image
-# Register your models here.
+
+
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('content_type',)
+    list_display = ('content_type', 'image')
+    
+    readonly_fields=('my_image_thumbnail',)

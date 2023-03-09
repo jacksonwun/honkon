@@ -8,7 +8,28 @@ const nextConfig = {
     defaultLocale: "en",
     localeDetection: false,
   },
-
+  domains: [
+    {
+      domain: "http://localhost:3000/",
+      defaultLocale: "en",
+    },
+    {
+      domain: "http://honkon.life/",
+      defaultLocale: "en",
+    },
+    {
+      domain: "http://uk.honkon.life/",
+      defaultLocale: "en",
+    },
+    {
+      domain: "https://honkon.life/",
+      defaultLocale: "en",
+    },
+    {
+      domain: "https://uk.honkon.life/",
+      defaultLocale: "en",
+    },
+  ],
   trailingSlash: true,
   reactStrictMode: true,
   sassOptions: {

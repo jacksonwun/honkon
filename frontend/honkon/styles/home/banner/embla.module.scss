@@ -14,14 +14,31 @@
   height: auto;
   margin-left: calc(var(--slide-spacing) * -1);
 }
-.embla__title {
+.embla__text__container {
+  top: 70%;
   position: absolute;
-  top: 80%;
-  left: 20%;
+  width: 100%;
+  height: 50%;
+  left: 55%;
+  background-color: rgba(0, 0, 0, 0.519);  
   transform: translate(-50%, -50%);
-  color: bisque;
-  font-size: larger;
+  padding: 1rem 1.5rem;
 }
+.embla__title {
+  width: 70%;
+  top: 35%;
+  color: bisque;
+  font-size: large;
+  font-weight: 700;
+}
+.embla__caption {
+  margin-top: 0.8rem;
+  padding-right: 4rem;
+  color: rgb(255, 255, 255);
+  font-size: small;
+  font-weight: 300;
+}
+
 .embla__slide {
   flex: 0 0 var(--slide-size);
   min-width: 0;
@@ -67,7 +84,9 @@
   bottom: 0;
 }
 .embla__button {
-  position: relative;
+  position: absolute;
+  top: 68%;
+  left: 88%;
   display: flex;
   align-items: flex-end;
 }

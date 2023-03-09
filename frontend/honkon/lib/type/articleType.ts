@@ -16,8 +16,50 @@ export interface IthumbBox {
   category_slug: string;
   slug: string;
   author: string;
-  title:string;  
-  caption: string;  
+  title: string;
+  caption: string;
   pic: string;
   isLarge: boolean;
+}
+
+export interface INewsBox {
+  cat: string;
+  catSlug: string;
+  title: string;
+  slug: string;
+  timestamp: string;
+  index: number;
+}
+
+export interface IEditorList {
+  results?: any;
+}
+
+export interface IEditor {
+  category: string;
+  category_slug: string;
+  slug: string;
+  author: string;
+  title: string;
+  caption: string;
+  pic: string;
+  isLarge: boolean;
+}
+
+export interface IFeatureBlog {
+  category: string;
+  category_slug: string;
+  slug: string;
+  author?: string;
+  title: string;
+  caption?: string;
+  pic?: string;
+  isLarge?: boolean;
+}
+
+export interface CarouselObj {
+  title: string;
+  description: string;
+  url: string;
+  alt: string;
 }

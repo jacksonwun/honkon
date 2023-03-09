@@ -6,6 +6,8 @@ export interface ThumbBox {
   slug: string;
   des: string | null;
   isLarge: boolean | null;
+  customCSS: string | null;
+  href?: string;
 }
 
 export interface ThumbBoxWithDes {

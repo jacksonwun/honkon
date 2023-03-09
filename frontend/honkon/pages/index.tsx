@@ -15,10 +15,10 @@ export default function Home() {
   return (
     <>
       <div className="container">
-        <Banner />
+        {/* <Banner /> */}
         <Feature />
-        <SectionA />
-        <SectionB />
+        {/* <SectionA /> */}
+        {/* <SectionB /> */}
         <SectionC />
       </div>
     </>

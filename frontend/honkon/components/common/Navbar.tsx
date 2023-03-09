@@ -23,14 +23,45 @@ export default function Navigation() {
   function toggle() {
     setIsNavExpanded(!isNavExpanded);
   }
-
+  var days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  var months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  var today = new Date();
+  var date =
+    days[today.getDay()].substring(0, 3) +
+    ", " +
+    months[today.getMonth()] +
+    " " +
+    today.getDate() +
+    ", " +
+    today.getFullYear();
   return (
     <>
       <Navbar expand={false} className={styles.navigation}>
         <Navbar.Text className={styles.navLeft}>
           <ul className="navbar-left">
-            <li>Wed, March 4, 2020</li>
-            <li>30°C,London</li>
+            <li>{date}</li>
+            <li>30°C, London</li>
           </ul>
         </Navbar.Text>
         <Navbar.Brand href="/" className={`${styles.logo}`}>
@@ -46,10 +77,10 @@ export default function Navigation() {
           <div className="d-flex">
             <ul className="navbar-right">
               <li>
-                <a href="#">ENGLISH</a>
+                <a href="/en">ENGLISH</a>
               </li>
               <li>
-                <a href="#">繁體中文</a>
+                <a href="/zh-hk">繁體中文</a>
               </li>
             </ul>
             <SocialMedia />

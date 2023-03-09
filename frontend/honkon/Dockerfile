@@ -10,7 +10,7 @@ ARG NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME
 ENV NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME=$NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME
 
 COPY package.json package-lock.json ./
-RUN  npm install --production
+RUN  npm install --omit=dev
 
 # Stage 2
 FROM node:18-alpine AS builder

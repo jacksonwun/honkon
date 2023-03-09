@@ -20,8 +20,8 @@ class ImageInline(GenericTabularInline):
 
 @admin.register(Article)
 class ArticleAdmin(TranslatableAdmin):
-    list_display = ("title", "category")
-    search_fields = ['slug', "title", "category"]
+    list_display = ("slug", "title", "category")
+    search_fields = ['slug', "category"]
     fields=(
         'category',
         'slug',

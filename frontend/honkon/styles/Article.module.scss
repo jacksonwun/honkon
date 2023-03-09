@@ -67,6 +67,20 @@
     }
 }
 
+.thumbBox3List:not(:last-child:first-child)  {
+    width: 100%;
+    @include desktop() {
+        width: 33.33%;
+        float: left;
+        padding: 0 .5rem 0 0;
+        img {
+            display: block;
+            height: auto;
+            width: 100%;
+        }
+    }
+}
+
 .thumbBox {
     text-decoration: none;
     color: black;
@@ -79,9 +93,9 @@
 
 .thumbBoxImage {
     min-width: 25vw;
-    max-width: 25vw;
-    min-height: 25vh;
-    max-height: 25vh;
+    max-width: 33%;
+    min-height: 15vw;
+    max-height: 15vw;
 }
 
 .capitalize {

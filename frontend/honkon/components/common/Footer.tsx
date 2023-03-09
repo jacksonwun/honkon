@@ -9,7 +9,7 @@ const Footer = () => (
         <div className="col-sm-12">
           <div className="border-top"></div>
         </div>
-        <div className="col-sm-3 col-lg-3">
+        <div className="col-sm-12 col-lg-6">
           <ul className="footer-vertical-nav">
             <li className="menu-title">
               <a href="pages/news-post.html">News</a>
@@ -31,57 +31,7 @@ const Footer = () => (
             </li>
           </ul>
         </div>
-        <div className="col-sm-3 col-lg-3">
-          <ul className="footer-vertical-nav">
-            <li className="menu-title">
-              <a href="pages/world.html">World</a>
-            </li>
-            <li>
-              <a href="pages/sports.html">Sports</a>
-            </li>
-            <li>
-              <a href="pages/art.html">Art</a>
-            </li>
-            <li>
-              <a href="#">Magazine</a>
-            </li>
-            <li>
-              <a href="pages/real-estate.html">Real estate</a>
-            </li>
-            <li>
-              <a href="pages/travel.html">Travel</a>
-            </li>
-            <li>
-              <a href="pages/author.html">Author</a>
-            </li>
-          </ul>
-        </div>
-        <div className="col-sm-3 col-lg-3">
-          <ul className="footer-vertical-nav">
-            <li className="menu-title">
-              <a href="#">Features</a>
-            </li>
-            <li>
-              <a href="#">Photography</a>
-            </li>
-            <li>
-              <a href="#">Video</a>
-            </li>
-            <li>
-              <a href="pages/news-post.html">Newsletters</a>
-            </li>
-            <li>
-              <a href="#">Live Events</a>
-            </li>
-            <li>
-              <a href="#">Stores</a>
-            </li>
-            <li>
-              <a href="#">Jobs</a>
-            </li>
-          </ul>
-        </div>
-        <div className="col-sm-3 col-lg-3">
+        <div className="col-sm-12 col-lg-6">
           <ul className="footer-vertical-nav">
             <li className="menu-title">
               <a href="#">More</a>
@@ -109,13 +59,13 @@ const Footer = () => (
       </div>
       <div className="row">
         <div className="col-sm-12">
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-center">
             <Image
-              src="assets/images/logo.svg"
-              className="footer-logo"
+              src="/logo.gif"
               alt=""
-              width={680}
-              height={680}
+              className="logo justify-content-start"
+              width={150}
+              height={150}
             />
 
             <div className="d-flex justify-content-end footer-social">
@@ -138,25 +88,13 @@ const Footer = () => (
                 <a href="#">Privacy Policy.</a>
               </li>
               <li>
-                <a href="#">Accessibility & CC.</a>
-              </li>
-              <li>
                 <a href="#">AdChoices.</a>
-              </li>
-              <li>
-                <a href="#">Advertise with us Transcripts.</a>
-              </li>
-              <li>
-                <a href="#">License.</a>
-              </li>
-              <li>
-                <a href="#">Sitemap</a>
               </li>
             </ul>
             <p className="font-weight-medium">
-              © 2020{" "}
-              <a href="https://www.bootstrapdash.com/" className="text-dark">
-                @ BootstrapDash
+              © 2023
+              <a href="/" className="text-dark">
+                @ Honkon.life
               </a>
               , Inc.All Rights Reserved.
             </p>

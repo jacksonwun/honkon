@@ -16,9 +16,7 @@ import ArticleAPI from "../../../lib/api/article";
 const ArticlePage = (initialArticle: IArticle) => {
   const router = useRouter();
   const slug = router.query.slug as string;
-  const locale = router.query.locale as string;
-
-  console.log(locale);
+  const locale = router.locale as string;
 
   const { data: fetchedArticle, error: error } = useSWR(
     `${SERVER_BASE_URL}/${locale}/articles/article/${slug}/`,
@@ -39,32 +37,8 @@ const ArticlePage = (initialArticle: IArticle) => {
   );
 };
 
-export async function getStaticPaths({ locales }: any) {
-  console.log(locales);
-  return {
-    paths: [
-      // if no `locale` is provided only the defaultLocale will be generated
-      {
-        params: {
-          category: "123",
-          slug: "123",
-        },
-        locale: "en",
-      },
-      {
-        params: {
-          slug: "123",
-          category: "123",
-        },
-        locale: "zh-hk",
-      },
-    ],
-    fallback: true,
-  };
-}
-
-ArticlePage.getStaticProps = async ({ query: { slug } }: any) => {
-  const { data } = await ArticleAPI.get(slug);
+ArticlePage.getInitialProps = async ({ query: { slug }, locale }: any) => {
+  const { data } = await ArticleAPI.get(slug, locale);
   return data;
 };
 

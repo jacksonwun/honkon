@@ -3,7 +3,6 @@ import Image from "next/image";
 
 import styles from "styles/Article.module.scss";
 import { ThumbBox } from "@/lib/type/thumbBoxType";
-import { ThumbBoxWithDes } from "@/lib/type/thumbBoxType";
 
 import Link from "next/link";
 import { Tooltip } from "@mui/material";
@@ -16,11 +15,15 @@ const ThumbBox = ({
   slug,
   des = null,
   isLarge = null,
+  customCSS = null,
+  href,
 }: ThumbBox) => {
   return (
     <Link
-      className={`col-sm-3 mb-5 mb-sm-2 ${styles.thumbBox}`}
-      href={`${catSlug}/${slug}`}
+      className={`${customCSS ? customCSS : "col-sm-3 mb-5 mb-sm-2"} ${
+        styles.thumbBox
+      }`}
+      href={`${href}${catSlug}/${slug}`}
     >
       <div className="position-relative image-hover">
         <Image

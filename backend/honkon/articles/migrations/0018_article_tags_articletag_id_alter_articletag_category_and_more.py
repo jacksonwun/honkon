@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='articletag',
             fields=[
+                ('id', models.BigAutoField(auto_created=True, default=None, primary_key=True, serialize=False, verbose_name='ID')),
                 ('tag', models.CharField(max_length=32)),
                 ('category', models.ForeignKey(default='', help_text='This is the help text', on_delete=django.db.models.deletion.CASCADE, related_name='tag_category', to='articles.category')),
                 ('slug', models.SlugField(default='', max_length=32)),
