@@ -30,6 +30,7 @@ urlpatterns += i18n_patterns(
     path('i18n/', include('django.conf.urls.i18n')),
     re_path('articles/', include('articles.urls')),
 )
+
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += [
         re_path(r'^rosetta/', include('rosetta.urls'))
