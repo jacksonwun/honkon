@@ -3,7 +3,7 @@ import re
 def json_chatgpt_string(content):
     print(content)
     output_json = {}   
-    reg_list = ['English Title', 'Chinese Title', 'slug', 'English Description', 'Chinese Description', 'English Content', 'Chinese Content']
+    reg_list = ['English Title', 'Chinese Title', 'slug', 'English Description', 'Chinese Description', 'English Content', 'Chinese Content','tags']
 
     for i in range(0, len(reg_list)):
         if i == len(reg_list)-1:

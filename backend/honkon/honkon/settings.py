@@ -18,36 +18,65 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-###############
-## VARIABLES ##
-###############
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+########################
+## SECRET & VARIABLES ##
+########################
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# INTERNAL
+DEBUG = str(os.getenv("DEBUG"))
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
-DOMAIN_URL = os.getenv("DOMAIN_URL")
+INTERNAL_IPS = os.getenv("INTERNAL_IPS")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS")
 
+# RAILWAY
+RAILWAY = str(os.getenv("RAILWAY"))
+DATABASE_URL = str(os.getenv("DATABASE_URL"))
+
+# DATABASE
+POSTGRES_DB = os.getenv("POSTGRES_DB")
+POSTGRES_USER =  os.getenv("POSTGRES_USER")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+POSTGRES_HOST = os.getenv("POSTGRES_HOST")
+POSTGRES_PORT = os.getenv("POSTGRES_PORT")
+
+# REDIS
+REDIS_DATABASE_PORT = os.getenv("REDIS_DATABASE_PORT")
+REDIS_DATABASE_URL = os.getenv("REDIS_DATABASE_URL")
+
+# STRIPE
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-if str(os.getenv("RAILWAY")) == '1':
+# STATIC
+STATIC_SOURCE = os.getenv("STATIC_SOURCE")
+
+# AWS S3
+AWS_S3_ACCESS_KEY_ID = os.getenv('AWS_S3_ACCESS_KEY_ID')
+AWS_S3_SECRET_ACCESS_KEY = os.getenv('AWS_S3_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_S3_STORAGE_BUCKET_BACKEND_STATIC')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
+
+#################
+## DEBUG LOGIC ##
+#################
+
+if RAILWAY == '1':
     RAILWAY = True
 else:
     RAILWAY = False
-CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-    'localhost'
-)
-CORS_ALLOWED_ORIGINS = ['http://*','http://127.0.0.1','http://localhost','https://localhost', "http://localhost:8000", "http://localhost:3000", 'http://127.0.0.1:8000','http://127.0.0.1:3000']
-if str(os.getenv("DEBUG")) == '1':
+
+if DEBUG == '1':
     DEBUG = True
     DJANGO_CPROFILE_MIDDLEWARE_REQUIRE_STAFF = False
     DEBUG_TOOLBAR_CONFIG = {
         'INTERCEPT_REDIRECTS': False,
     }
     CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:8000',
+        'localhost'
+    )    
     CORS_ALLOW_HEADERS = "access-control-allow-origin"
     CORS_ALLOWED_ORIGINS = ['http://*','http://127.0.0.1','http://localhost','https://localhost', "http://localhost:8000", "http://localhost:3000", 'http://127.0.0.1:8000','http://127.0.0.1:3000']
     NOSE_ARGS = ['--nocapture',
@@ -59,7 +88,7 @@ if str(os.getenv("DEBUG")) == '1':
             "BACKEND": "channels_redis.core.RedisChannelLayer",
             "CONFIG": {
                 "hosts": [ 
-                    ("localhost", os.getenv("REDIS_DATABASE_PORT"))
+                    ("localhost", REDIS_DATABASE_PORT)
                 ],
             },
         },
@@ -68,18 +97,18 @@ else:
     DEBUG = False
     CORS_ALLOW_ALL_ORIGINS = True    
     if INTERNAL_IPS:
-        INTERNAL_IPS = os.environ.get('INTERNAL_IPS').split(",")
+        INTERNAL_IPS = INTERNAL_IPS.split(",")
     if ALLOWED_HOSTS:
-        ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+        ALLOWED_HOSTS = ALLOWED_HOSTS.split(",")
     if CORS_ALLOWED_ORIGINS:
-        CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS").split(",")
+        CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS.split(",")
 
     CHANNEL_LAYERS = {
         "default": {
             "BACKEND": "channels_redis.core.RedisChannelLayer",
             "CONFIG": {
                 "hosts": [ 
-                    ("10.245.125.43", os.getenv("REDIS_DATABASE_PORT"))
+                    ("10.245.125.43", REDIS_DATABASE_PORT)
                 ],
             },
         },
@@ -123,7 +152,6 @@ INSTALLED_APPS = [
     'articles.api',
     'users',
     'users.upload'
-
 ]
 
 MIDDLEWARE = [
@@ -138,7 +166,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'honkon.urls'
@@ -166,12 +193,9 @@ WSGI_APPLICATION = 'honkon.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 if RAILWAY:
-    DATABASE_URL = os.getenv("DATABASE_URL")
     DATABASES = {
         "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
     }
-
-    REDIS_DATABASE_URL = os.getenv("REDIS_DATABASE_URL")    
     CHANNEL_LAYERS = {
         "default": {
             "BACKEND": 'channels_redis.core.RedisChannelLayer', 
@@ -184,11 +208,11 @@ else:
     DATABASES = {
         'default': {
                 "ENGINE": "django.db.backends.postgresql",
-                "NAME": os.getenv("POSTGRES_DB"),
-                "USER": os.getenv("POSTGRES_USER"),
-                "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-                'HOST': os.getenv("POSTGRES_HOST"),
-                "PORT": os.getenv("POSTGRES_PORT"),
+                "NAME": POSTGRES_DB,
+                "USER": POSTGRES_USER,
+                "PASSWORD": POSTGRES_PASSWORD,
+                'HOST': POSTGRES_HOST,
+                "PORT": POSTGRES_PORT,
             }
         }
     # REPLICA_DATABASE_URL = os.getenv("REPLICA_DATABASE_URL")
@@ -249,13 +273,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 # S3
-AWS_S3_ACCESS_KEY_ID = os.getenv('AWS_S3_ACCESS_KEY_ID')
-AWS_S3_SECRET_ACCESS_KEY = os.getenv('AWS_S3_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_S3_STORAGE_BUCKET_BACKEND_STATIC')
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_OBJECT_PARAMETERS = { 'CacheControl': 'max-age=86400', }
-AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
 AWS_LOCATION = ''
 
