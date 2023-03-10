@@ -2,6 +2,7 @@ import React from "react";
 import useSWR, { Fetcher } from "swr";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Skeleton from "react-loading-skeleton";
 
 import { fetcher } from "../../../lib/utils/fetcher";
 import SuggestionBottom from "@/components/article/SuggestionBottom";
@@ -29,7 +30,7 @@ const ArticlePage = (initialArticle: IArticle) => {
     <div className="container">
       <div className="row">
         <div className="col-sm-12">
-          <ArticleMeta article={article} />
+          {article ? <ArticleMeta article={article} /> : <Skeleton />}
           <SuggestionBottom />
         </div>
       </div>
