@@ -63,6 +63,9 @@ jobs:
           REACT_APP_PROXY_HOST=${{ secrets.REACT_PROXY_HOST }}
           REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_BACKEND_PROXY_HOST }}
           NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME=${{ vars.NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME }}
+          NEXT_PUBLIC_API_URL=${{vars.NEXT_PUBLIC_API_URL}}
+          NEXT_PUBLIC_API_PORT=${{secrets.NEXT_PUBLIC_API_PORT}}
+          NEXT_PUBLIC_HTTP=${{vars.NEXT_PUBLIC_HTTP}}
           EOF
           kubectl delete secret ${{ secrets.DOCN_FRONTEND_SECRET_NAME }}
           kubectl create secret generic ${{ secrets.DOCN_FRONTEND_SECRET_NAME }} --from-env-file=.env.local
