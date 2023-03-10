@@ -16,9 +16,6 @@ const PageDispatchContext = React.createContext<PageDispatch | undefined>(
 
 const PageContextProvider = ({ children }: Props) => {
   const [page, setPage] = useSessionStorage("offset", 0);
-  {
-    console.log("outside PageContextProvider");
-  }
   return (
     <PageDispatchContext.Provider value={setPage}>
       <PageStateContext.Provider value={page}>

@@ -25,13 +25,11 @@ const App = ({ Component, pageProps }: any) => (
         <title>HonKon.Life</title>
         <link rel="shortcut icon" href="../public/images/favicon.png" />
       </Head>
-      {/* <ContextProvider> */}
-      <> {console.log("outside Layout")}</>
-      <Layout>
-        <> {console.log("inside Layout")}</>
-        <Component {...pageProps} />
-      </Layout>
-      {/* </ContextProvider> */}
+      <ContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ContextProvider>
     </SSRProvider>
   </>
 );

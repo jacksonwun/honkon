@@ -8,7 +8,6 @@ const ContextProvider = ({
 }: React.PropsWithChildren<{ example?: string }>) => (
   <PageContext>
     <>
-      {console.log("outside ContextProvider")}
       <PageCountContext>{children}</PageCountContext>
     </>
   </PageContext>
