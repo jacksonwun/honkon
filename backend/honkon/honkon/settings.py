@@ -101,7 +101,9 @@ else:
     if ALLOWED_HOSTS:
         ALLOWED_HOSTS = ALLOWED_HOSTS.split(",")
     if CORS_ALLOWED_ORIGINS:
+        print(CORS_ALLOWED_ORIGINS)
         CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS.split(",")
+        print(CORS_ALLOWED_ORIGINS)
 
     CHANNEL_LAYERS = {
         "default": {
