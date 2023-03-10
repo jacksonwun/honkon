@@ -6,8 +6,15 @@ const nextConfig = {
   i18n: {
     locales: ["en", "zh-hk"],
     defaultLocale: "en",
-    localeDetection: false,
+    domains: [
+      {
+        domain: "honkon.life",
+        defaultLocale: "en",
+        locales: ["en", "zh-hk"],
+      },
+    ],    
   },
+
   trailingSlash: true,
   reactStrictMode: true,
   sassOptions: {

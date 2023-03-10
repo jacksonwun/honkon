@@ -1,4 +1,6 @@
-export const SERVER_BASE_URL = `${process.env.NEXT_PUBLIC_HTTP}://${process.env.NEXT_PUBLIC_API_URL}:${process.env.NEXT_PUBLIC_API_PORT}`;
+export const SERVER_BASE_URL = `${process.env.NEXT_PUBLIC_HTTP}://${process.env.NEXT_PUBLIC_API_URL}`
+
+/**:${process.env.NEXT_PUBLIC_API_PORT};*/
 
 export const SERVER_API_PORT = `${process.env.NEXT_BACKEND_API_PORT}`;
 

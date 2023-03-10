@@ -45,6 +45,9 @@ jobs:
             --build-arg REACT_APP_PROXY_HOST=${{ secrets.REACT_APP_PROXY_HOST }} \
             --build-arg REACT_APP_BACKEND_PROXY_HOST=${{ secrets.REACT_APP_BACKEND_PROXY_HOST }} \
             --build-arg NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME=${{ vars.NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME }} \
+            --build-arg NEXT_PUBLIC_API_URL=${{ vars.NEXT_PUBLIC_API_URL }} \
+            --build-arg NEXT_PUBLIC_API_PORT=${{ vars.NEXT_PUBLIC_API_PORT }} \
+            --build-arg NEXT_PUBLIC_HTTP=${{ vars.NEXT_PUBLIC_HTTP }} \
             -t ${{ vars.DOCN_REGISTRY_FRONTEND }}:latest \
             -t ${{ vars.DOCN_REGISTRY_FRONTEND }}:${GITHUB_SHA::7} \
             .
