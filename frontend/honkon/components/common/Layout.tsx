@@ -8,7 +8,7 @@ const Layout = ({
 }: React.PropsWithChildren<{ example?: string }>) => (
   <>
     <Navbar />
-    <>{console.log("children")}</>
+    <>{console.log("children", children)}</>
     {children}
     <Footer />
   </>
