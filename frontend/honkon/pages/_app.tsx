@@ -26,7 +26,9 @@ const App = ({ Component, pageProps }: any) => (
         <link rel="shortcut icon" href="../public/images/favicon.png" />
       </Head>
       {/* <ContextProvider> */}
+      <> {console.log("outside Layout")}</>
       <Layout>
+        <> {console.log("inside Layout")}</>
         <Component {...pageProps} />
       </Layout>
       {/* </ContextProvider> */}
