@@ -9,9 +9,16 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
 
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - honkon.life
+    secretName: example-issuer-account-key
   rules:
   - host: honkon.life
     http:
@@ -50,9 +57,14 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - django.honkon.life
+    secretName: example-issuer-account-key
   rules:
   - host: django.honkon.life
     http:
