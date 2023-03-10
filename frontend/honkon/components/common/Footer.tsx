@@ -1,6 +1,7 @@
 import React from "react";
 import SocialMedia from "./SocialMedia";
 import Image from "next/image";
+import Link from "next/link";
 
 const Footer = () => (
   <footer>
@@ -12,47 +13,47 @@ const Footer = () => (
         <div className="col-sm-12 col-lg-6">
           <ul className="footer-vertical-nav">
             <li className="menu-title">
-              <a href="pages/news-post.html">News</a>
+              <Link href="pages/news-post.html">News</Link>
             </li>
             <li>
-              <a href="index.html">Home</a>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <a href="pages/world.html">World</a>
+              <Link href="/article/london">World</Link>
             </li>
             <li>
-              <a href="pages/author.html">Magazine</a>
+              <Link href="/article/london">Magazine</Link>
             </li>
             <li>
-              <a href="pages/business.html">Business</a>
+              <Link href="/article/london">Business</Link>
             </li>
             <li>
-              <a href="pages/politics.html">Politics</a>
+              <Link href="/article/london">London</Link>
             </li>
           </ul>
         </div>
         <div className="col-sm-12 col-lg-6">
           <ul className="footer-vertical-nav">
             <li className="menu-title">
-              <a href="#">More</a>
+              <Link href="/">More</Link>
             </li>
             <li>
-              <a href="#">RSS</a>
+              <Link href="/">RSS</Link>
             </li>
             <li>
-              <a href="#">FAQ</a>
+              <Link href="/">FAQ</Link>
             </li>
             <li>
-              <a href="#">User Agreement</a>
+              <Link href="/">User Agreement</Link>
             </li>
             <li>
-              <a href="#">Privacy</a>
+              <Link href="/">Privacy</Link>
             </li>
             <li>
-              <a href="pages/aboutus.html">About us</a>
+              <Link href="/">About us</Link>
             </li>
             <li>
-              <a href="pages/contactus.html">Contact</a>
+              <Link href="/">Contact</Link>
             </li>
           </ul>
         </div>
