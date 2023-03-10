@@ -16,6 +16,9 @@ const PageCountDispatchContext = React.createContext<
 
 const PageCountContextProvider = ({ children }: Props) => {
   const [pageCount, setPageCount] = React.useState(1);
+  {
+    console.log("outside PageCountContextProvider");
+  }
   return (
     <PageCountDispatchContext.Provider value={setPageCount}>
       <PageCountStateContext.Provider value={pageCount}>
