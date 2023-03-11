@@ -1,4 +1,4 @@
-export const SERVER_BASE_URL = `${process.env.NEXT_PUBLIC_HTTP}://${process.env.NEXT_PUBLIC_API_URL}`
+export const SERVER_BASE_URL = `${process.env.NEXT_PUBLIC_HTTP}://${process.env.NEXT_PUBLIC_API_URL}`;
 
 /**:${process.env.NEXT_PUBLIC_API_PORT};*/
 
@@ -17,3 +17,7 @@ export const ARTICLE_QUERY_MAP = {
 export const DEFAULT_PROFILE_IMAGE = `https://static.productionready.io/images/smiley-cyrus.jpg`;
 
 export const DEFAULT_LIMIT = 20;
+
+//** Language i18n */
+export const fallbackLng = "en";
+export const languages = [fallbackLng, "de"];
