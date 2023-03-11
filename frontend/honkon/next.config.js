@@ -3,6 +3,14 @@
 const path = require("path");
 
 const nextConfig = {
+  exportPathMap: async function (
+    defaultPathMap,
+    { dev, dir, outDir, distDir, buildId }
+  ) {
+    return {
+      "/": { page: "/" },
+    };
+  },
   i18n: {
     locales: ["en", "zh-hk"],
     defaultLocale: "en",
