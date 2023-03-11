@@ -1,4 +1,4 @@
-export interface ThumbBox {
+export interface IThumbBox {
   cat: string;
   catSlug: string;
   title: string;

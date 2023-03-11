@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import styles from "styles/Article.module.scss";
-import { ThumbBox } from "@/lib/type/thumbBoxType";
+import { IThumbBox } from "@/lib/type/thumbBoxType";
 
 import Link from "next/link";
 import { Tooltip } from "@mui/material";
@@ -17,7 +17,7 @@ const ThumbBox = ({
   isLarge = null,
   customCSS = null,
   href,
-}: ThumbBox) => {
+}: IThumbBox) => {
   return (
     <Link
       className={`${customCSS ? customCSS : "col-sm-3 mb-5 mb-sm-2"} ${
