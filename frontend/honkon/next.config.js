@@ -16,6 +16,7 @@ const nextConfig = {
   i18n: {
     locales: ["en", "zh-hk"],
     defaultLocale: "en",
+    localeDetection: false,
   },
   trailingSlash: true,
 
