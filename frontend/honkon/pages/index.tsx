@@ -14,8 +14,10 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   return (
     <>
+      <>{console.log("out container")}</>
       <div className="container">
-        {/* <Banner /> */ }
+        <>{console.log("in container")}</>
+        {/* <Banner /> */}
         <Feature />
         {/* <SectionA /> */}
         {/* <SectionB /> */}

@@ -12,7 +12,7 @@ const nextConfig = {
         defaultLocale: "en",
         locales: ["en", "zh-hk"],
       },
-    ],    
+    ],
   },
 
   trailingSlash: true,
@@ -26,12 +26,6 @@ const nextConfig = {
     loader: "custom",
     loaderFile: "./public/images/loader.ts",
     remotePatterns: [
-      // {
-      //   protocol: "https",
-      //   hostname: "honkon-frontend.s3.eu-west-2.amazonaws.com",
-      //   port: "",
-      //   pathname: "**",
-      // },
       {
         protocol: "https",
         hostname: "eu-frankfurt.myqcloud.com",

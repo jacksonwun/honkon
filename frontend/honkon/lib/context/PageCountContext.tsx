@@ -22,7 +22,6 @@ const PageCountContextProvider = ({ children }: Props) => {
   return (
     <PageCountDispatchContext.Provider value={setPageCount}>
       <PageCountStateContext.Provider value={pageCount}>
-        <>{console.log("INSIDE ContextProvider")}</>
         {children}
       </PageCountStateContext.Provider>
     </PageCountDispatchContext.Provider>
