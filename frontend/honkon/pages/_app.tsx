@@ -23,7 +23,6 @@ const App = ({ Component, pageProps }: any) => (
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <title>HonKon.Life</title>
-        <link rel="shortcut icon" href="../public/images/favicon.png" />
       </Head>
       <ContextProvider>
         <Layout>
