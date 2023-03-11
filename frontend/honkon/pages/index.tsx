@@ -8,7 +8,7 @@ import SectionA from "@/components/home/Section/SectionA";
 import SectionB from "@/components/home/Section/SectionB";
 import SectionC from "@/components/home/Section/SectionC";
 
-export default function Home() {
+export default function Home(query: any) {
   return (
     <>
       <div className="container">

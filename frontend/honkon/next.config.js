@@ -16,12 +16,12 @@ const nextConfig = {
   i18n: {
     locales: ["en", "zh-hk"],
     defaultLocale: "en",
-    //   domains: [
-    //     {
-    //       domain: "honkon.life",
-    //       defaultLocale: "en",
-    //     },
-    //   ],
+    domains: [
+      {
+        domain: "honkon.life",
+        defaultLocale: "en",
+      },
+    ],
   },
   trailingSlash: true,
 
