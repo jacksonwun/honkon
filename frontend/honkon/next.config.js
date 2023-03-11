@@ -3,6 +3,15 @@
 const path = require("path");
 
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/about",
+        permanent: true,
+      },
+    ];
+  },
   exportPathMap: async function (
     defaultPathMap,
     { dev, dir, outDir, distDir, buildId }
@@ -26,7 +35,7 @@ const nextConfig = {
   trailingSlash: true,
   reactStrictMode: true,
   sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
+    includePaths: [path.join("styles")],
     prependData: `@import "_mixins.scss";`,
   },
   images: {
