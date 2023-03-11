@@ -3,14 +3,11 @@
 const path = require("path");
 
 const nextConfig = {
-  trailingSlash: true,
-  reactStrictMode: true,
-
   async redirects() {
     return [
       {
         source: "/",
-        destination: "/en",
+        destination: "/",
         permanent: true,
       },
     ];
@@ -27,6 +24,9 @@ const nextConfig = {
       },
     ],
   },
+
+  trailingSlash: true,
+  reactStrictMode: true,
 
   sassOptions: {
     includePaths: [path.join("styles")],
