@@ -12,3 +12,19 @@ spec:
     - http01:
         ingress:
           class: nginx
+
+
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod-django
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: djangok9s@gmail.com
+    privateKeySecretRef:
+      name: example-issuer-account-key-django
+    solvers:
+    - http01:
+        ingress:
+          class: nginx

@@ -52,19 +52,20 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"    
-    nginx.ingress.kubernetes.io/client-max-body-size: "10M"
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-prod-django
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true" 
+    nginx.ingress.kubernetes.io/client-max-body-size: "10M"
 
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - django.honkon.life
-    secretName: example-issuer-account-key
+    secretName: example-issuer-account-key-django
   rules:
   - host: django.honkon.life
     http:
