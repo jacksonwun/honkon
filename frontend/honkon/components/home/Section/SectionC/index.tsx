@@ -17,8 +17,8 @@ const SectionC = () => (
         </div>
       </div>
       <div className="row">
-        {/* <SectionCLeft />
-        <SectionCRight /> */}
+        <SectionCLeft />
+        <SectionCRight />
       </div>
     </div>
   </>

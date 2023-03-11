@@ -5,6 +5,16 @@ const path = require("path");
 const nextConfig = {
   trailingSlash: true,
   reactStrictMode: true,
+
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/uk",
+        permanent: true,
+      },
+    ];
+  },
   assetPrefix: ".",
   i18n: {
     locales: ["en", "zh-hk"],
