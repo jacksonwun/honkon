@@ -18,7 +18,7 @@ const nextConfig = {
   assetPrefix: ".",
   i18n: {
     locales: ["en", "zh-hk"],
-    defaultLocale: "",
+    defaultLocale: "en",
     domains: [
       {
         domain: "honkon.life",
