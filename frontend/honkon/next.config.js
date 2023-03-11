@@ -3,14 +3,9 @@
 const path = require("path");
 
 const nextConfig = {
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    return {
-      "/": { page: "/" },
-    };
-  },
+  trailingSlash: true,
+  reactStrictMode: true,
+  assetPrefix: ".",
   i18n: {
     locales: ["en", "zh-hk"],
     defaultLocale: "en",
@@ -23,12 +18,11 @@ const nextConfig = {
     ],
   },
 
-  trailingSlash: true,
-  reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join("styles")],
     prependData: `@import "_mixins.scss";`,
   },
+
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     domains: [
