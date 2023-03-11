@@ -31,7 +31,11 @@ const ThumbBox = ({
           src={picURL}
           alt={cat}
           className={`img-fluid ${
-            isLarge ? styles.thumbBoxLargeImage : styles.thumbBoxImage
+            isLarge
+              ? styles.thumbBoxLargeImage
+              : des
+              ? styles.thumbBoxDesImage
+              : styles.thumbBoxImage
           }`}
           width={1200}
           height={630}

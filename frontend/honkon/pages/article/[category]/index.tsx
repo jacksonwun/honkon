@@ -85,7 +85,7 @@ const CategoryPage = (initialCategory: any) => {
             <div className="text-secondary fs-15">{data.description}</div>
           </div>
         </div>
-        <h5 className="text-muted font-weight-medium mb-3 section-title">
+        <h5 className="text-muted font-weight-medium mb-3 section-title mt-2">
           Feature
         </h5>
       </div>
