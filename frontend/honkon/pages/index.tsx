@@ -16,7 +16,7 @@ export default function Home() {
         <Feature />
         {/* <SectionA /> */}
         {/* <SectionB /> */}
-        <SectionC />
+        {/* <SectionC /> */}
       </div>
     </>
   );
