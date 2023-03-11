@@ -13,10 +13,10 @@ export default function Home() {
     <>
       <div className="container">
         {/* <Banner /> */}
-        <Feature />
+        {/* <Feature /> */}
         {/* <SectionA /> */}
         {/* <SectionB /> */}
-        {/* <SectionC /> */}
+        <SectionC />
       </div>
     </>
   );
