@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/uk",
+        destination: "/en",
         permanent: true,
       },
     ];
@@ -18,7 +18,7 @@ const nextConfig = {
   assetPrefix: ".",
   i18n: {
     locales: ["en", "zh-hk"],
-    defaultLocale: "en",
+    defaultLocale: "",
     domains: [
       {
         domain: "honkon.life",
