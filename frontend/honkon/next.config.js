@@ -12,7 +12,7 @@ const nextConfig = {
       },
     ];
   },
-  assetPrefix: ".",
+  // assetPrefix: ".",
   i18n: {
     locales: ["en", "zh-hk"],
     defaultLocale: "en",
@@ -20,12 +20,11 @@ const nextConfig = {
       {
         domain: "honkon.life",
         defaultLocale: "en",
-        locales: ["en", "zh-hk"],
       },
     ],
   },
-
   trailingSlash: true,
+
   reactStrictMode: true,
 
   sassOptions: {
