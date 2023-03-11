@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <>
       <div className="container">
-        <Banner />
-        {/* <Feature /> */}
+        {/* <Banner /> */}
+        <Feature />
         {/* <SectionA /> */}
         {/* <SectionB /> */}
         <SectionC />

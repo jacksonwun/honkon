@@ -13,16 +13,16 @@ const nextConfig = {
   //   ];
   // },
   // assetPrefix: ".",
-  // i18n: {
-  //   locales: ["en", "zh-hk"],
-  //   defaultLocale: "en",
-  //   domains: [
-  //     {
-  //       domain: "honkon.life",
-  //       defaultLocale: "en",
-  //     },
-  //   ],
-  // },
+  i18n: {
+    locales: ["en", "zh-hk"],
+    defaultLocale: "en",
+    //   domains: [
+    //     {
+    //       domain: "honkon.life",
+    //       defaultLocale: "en",
+    //     },
+    //   ],
+  },
   trailingSlash: true,
 
   reactStrictMode: true,
