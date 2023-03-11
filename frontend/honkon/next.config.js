@@ -3,15 +3,15 @@
 const path = require("path");
 
 const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/",
-        permanent: true,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       destination: "/",
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
   // assetPrefix: ".",
   i18n: {
     locales: ["en", "zh-hk"],
