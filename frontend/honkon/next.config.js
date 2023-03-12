@@ -14,8 +14,8 @@ const nextConfig = {
   // },
   // assetPrefix: ".",
   i18n: {
-    locales: ["en", "zh-hk"],
-    defaultLocale: "en",
+    locales: ["default", "en", "zh-hk"],
+    defaultLocale: "default",
     localeDetection: false,
   },
   trailingSlash: true,
