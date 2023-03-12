@@ -3,21 +3,22 @@
 const path = require("path");
 
 const nextConfig = {
+  i18n: {
+    locales: ["en", "zh-hk"],
+    defaultLocale: "en",
+    localeDetection: false,
+  },
+
   async redirects() {
     return [
       {
-        source: "/en",
+        source: "/:locale",
         destination: "/en",
-        permanent: true,
+        permanent: false,
+        locale: false,
       },
     ];
   },
-
-  // i18n: {
-  //   locales: ["en", "zh-hk"],
-  //   defaultLocale: "en",
-  //   localeDetection: false,
-  // },
 
   trailingSlash: true,
   reactStrictMode: true,
