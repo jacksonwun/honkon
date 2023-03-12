@@ -59,8 +59,8 @@ export const middleware = (request: NextRequest) => {
   // Cloned url to work with
   const url = nextUrl.clone();
 
-  if (nextUrl.locale === "en" && language === "fr") {
-    url.pathname = `/fr${nextUrl.pathname}`;
+  if (nextUrl.locale === "uk" && language === "en") {
+    url.pathname = `/en${nextUrl.pathname}`;
     return NextResponse.redirect(url);
   }
 
