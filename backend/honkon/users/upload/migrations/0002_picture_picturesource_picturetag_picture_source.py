@@ -11,6 +11,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.DeleteModel('Picture'),
         migrations.CreateModel(
             name='Picture',
             fields=[
