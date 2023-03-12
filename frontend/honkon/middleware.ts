@@ -85,43 +85,15 @@ export const middleware = (request: NextRequest) => {
       return NextResponse.redirect(url);
     }
 
-    // We now know:
-    // No cookie that we need to deal with
-    // User has to be on default locale
-
     // Redirect All France
     if (country === "zh-hk") {
       url.pathname = `/zh-hk${nextUrl.pathname}`;
       return NextResponse.redirect(url);
     }
 
-    // Redirect All Belgium
-    if (country === "be") {
-      url.pathname = `/fr-be${nextUrl.pathname}`;
-      return NextResponse.redirect(url);
-    }
-
     // Redirect all Great Britain
-    if (country === "gb") {
+    if (language === "en") {
       url.pathname = `/en${nextUrl.pathname}`;
-      return NextResponse.redirect(url);
-    }
-
-    // Redirect French-Canada
-    if (country === "ca" && language === "fr") {
-      url.pathname = `/fr-ca${nextUrl.pathname}`;
-      return NextResponse.redirect(url);
-    }
-
-    // Redirect all other Canadian requests
-    if (country === "ca") {
-      url.pathname = `/en-ca${nextUrl.pathname}`;
-      return NextResponse.redirect(url);
-    }
-
-    // Handle French language fallback
-    if (language === "fr") {
-      url.pathname = `/fr${nextUrl.pathname}`;
       return NextResponse.redirect(url);
     }
 
