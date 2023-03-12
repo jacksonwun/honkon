@@ -3,23 +3,12 @@
 const path = require("path");
 
 const nextConfig = {
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/",
-  //       destination: "/",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
-  // assetPrefix: ".",
   i18n: {
-    locales: ["default", "en", "zh-hk"],
-    defaultLocale: "default",
+    locales: ["en", "zh-hk"],
+    defaultLocale: "en",
     localeDetection: false,
   },
   trailingSlash: true,
-
   reactStrictMode: true,
 
   sassOptions: {
@@ -30,7 +19,6 @@ const nextConfig = {
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     domains: [
-      "eu-frankfurt.myqcloud.com",
       "honkon-frontend.s3.eu-west-2.amazonaws.com",
     ],
     loader: "custom",
