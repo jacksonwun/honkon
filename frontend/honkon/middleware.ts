@@ -92,7 +92,7 @@ export const middleware = (request: NextRequest) => {
     }
 
     // Redirect all Great Britain
-    if (language === "en") {
+    if (language === "uk") {
       url.pathname = `/en${nextUrl.pathname}`;
       return NextResponse.redirect(url);
     }
