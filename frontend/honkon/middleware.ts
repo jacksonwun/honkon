@@ -14,25 +14,22 @@ export const middleware = (request: NextRequest) => {
       .split("-")?.[0]
       .toLowerCase() || "en";
 
-  // // Helpful console.log for debugging
   console.log({
     nextLocale: nextUrl.locale,
     pathname: nextUrl.pathname,
+    geo: geo,
     cookie: cookies.NEXT_LOCALE,
     clientCountry: country,
     clientLanguage: language,
   });
 
   try {
-    // Early return if it is a public file such as an image
     if (PUBLIC_FILE.test(nextUrl.pathname)) {
       return undefined;
     }
-    // Early return if this is an api route
     if (nextUrl.pathname.includes("/api")) {
       return undefined;
     }
-
     // Early return if we are on a locale other than default
     if (nextUrl.locale !== "default") {
       return undefined;
@@ -70,6 +67,6 @@ export const middleware = (request: NextRequest) => {
   }
 };
 
-// export const config = {
-//   matcher: ["/", "/about"], // paths on which middleware will work
-// };
+export const config = {
+  matcher: ["/", "/about"], // paths on which middleware will work
+};

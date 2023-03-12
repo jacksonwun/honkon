@@ -8,7 +8,8 @@ import SectionA from "@/components/home/Section/SectionA";
 import SectionB from "@/components/home/Section/SectionB";
 import SectionC from "@/components/home/Section/SectionC";
 
-export default function Home(query: any) {
+const Home = (initialArticle: any) => {
+
   return (
     <>
       <div className="container">
@@ -21,3 +22,10 @@ export default function Home(query: any) {
     </>
   );
 }
+
+Home.getInitialProps = async ({ query: { slug }, locale }: any) => {
+  // const { data } = await ArticleAPI.get(slug, locale);
+  return null;
+};
+
+export default Home;

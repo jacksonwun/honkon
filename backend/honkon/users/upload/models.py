@@ -23,6 +23,15 @@ class Image(models.Model):
             'src': self.pic if self.pic else None,
         })
 
+
+class PictureSource(models.Model):
+    name = models.CharField(max_length=63)
+    slug = models.SlugField(max_length=63)
+    url = models.URLField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
 class Picture(models.Model):
     picture = models.ImageField(_("Picture"), upload_to="pictures")
     picture_desktop = ImageSpecField(
@@ -41,6 +50,8 @@ class Picture(models.Model):
         format="PNG",
         options={"quality": 50}
     )
+    name = models.CharField(max_length=255)
+    source = models.ForeignKey(PictureSource, on_delete=models.CASCADE,related_name='picture_source')
 
 
 class PictureTag(models.Model):
