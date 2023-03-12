@@ -35,28 +35,38 @@
 //   return NextResponse.next();
 // }
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export async function middleware(req: NextRequest) {
-  if (
-    req.nextUrl.pathname.startsWith("/_next") ||
-    req.nextUrl.pathname.includes("/api/") ||
-    PUBLIC_FILE.test(req.nextUrl.pathname)
-  ) {
-    return;
+export const middleware = (request: NextRequest) => {
+  const { nextUrl, headers } = request;
+
+  // Early return if it is a public file such as an image
+  if (PUBLIC_FILE.test(nextUrl.pathname)) {
+    return undefined;
   }
 
-  if (req.nextUrl.locale === "en") {
-    const locale = req.cookies.get("NEXT_LOCALE")?.value || "en";
+  // Get language part of the accept-language header
+  const language =
+    headers
+      .get("accept-language")
+      ?.split(",")?.[0]
+      .split("-")?.[0]
+      .toLowerCase() || "en";
 
-    return NextResponse.redirect(
-      new URL(`/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url)
-    );
+  // Cloned url to work with
+  const url = nextUrl.clone();
+
+  if (nextUrl.locale === "en" && language === "fr") {
+    url.pathname = `/fr${nextUrl.pathname}`;
+    return NextResponse.redirect(url);
   }
-}
 
-export const config = {
-  matcher: ["/", "/about"], // paths on which middleware will work
+  return undefined;
 };
+
+// export const config = {
+//   matcher: ["/", "/about"], // paths on which middleware will work
+// };
