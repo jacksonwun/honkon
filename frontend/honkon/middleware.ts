@@ -12,7 +12,6 @@ export const config = {
 const cookieName = "i18next";
 
 export function middleware(req: NextRequest) {
-  console.log("req", req);
   let lng;
   if (req.cookies.has(cookieName))
     lng = acceptLanguage.get(req.cookies.get(cookieName)?.value);
@@ -20,7 +19,7 @@ export function middleware(req: NextRequest) {
   if (!lng) lng = fallbackLng;
 
   if (req.nextUrl.pathname === "/") {
-    return NextResponse.redirect(new URL(`/${lng}`, req.url));
+    return NextResponse.rewrite(new URL(`/${lng}`, req.url));
   }
 
   //   if (req.headers.has("referer")) {
