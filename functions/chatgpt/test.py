@@ -10,8 +10,10 @@ from logging.handlers import RotatingFileHandler
 from chatgpt_read import json_chatgpt_string
 
 
-# AWS S3 credentials
+
 load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# AWS S3 credentials
 access_key = os.getenv("AWS_S3_ACCESS_KEY_ID")
 secret_key = os.getenv("AWS_S3_SECRET_ACCESS_KEY")
 region_name = os.getenv("AWS_S3_REGION_NAME")
@@ -23,7 +25,8 @@ s3 = boto3.client('s3', aws_access_key_id=access_key, aws_secret_access_key=secr
 
 log_format = "%(asctime)s::%(levelname)s::%(name)s::" \
              "%(filename)s::%(lineno)d::%(message)s"
-handler = RotatingFileHandler(f'./log/{file_name}', maxBytes=20000, backupCount=5,     encoding='utf-8')
+os.makedirs(os.path.dirname(f'./log/{file_name}'), exist_ok=True)
+handler = RotatingFileHandler(f'./log/{file_name}', maxBytes=20000, backupCount=5, encoding='utf-8')
 
 # Set up logger
 logging.basicConfig(level=logging.INFO, format=log_format ,handlers=[handler])
@@ -32,7 +35,7 @@ with open('input/news.txt',"r",encoding='utf-8') as f:
     contents = f.read()
     print(contents)
 
-def run(content):
+def run(content, API_KEY):
     chatgpt_script = {
         'Turn article to JSON': [
             {"role": "system", "content": "You are an assistant to help rephrase the article and translate them to 繁體中文."},
@@ -53,7 +56,7 @@ def run(content):
     messages=chatgpt_script['Turn article to JSON'],
     )
 
-response = run(contents)
+response = run(contents, OPENAI_API_KEY)
 logging.info(response)
 
 decoded_value = response['choices'][0]['message']['content'].encode().decode('utf-8')

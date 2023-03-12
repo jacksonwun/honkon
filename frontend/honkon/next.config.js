@@ -12,7 +12,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        // source: "/:locale",
         source: "/",
         destination: "/en",
         permanent: false,

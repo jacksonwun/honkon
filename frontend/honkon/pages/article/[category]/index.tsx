@@ -141,6 +141,9 @@ const CategoryPage = (initialCategory: any) => {
 };
 
 CategoryPage.getInitialProps = async ({ query: { category }, locale }: any) => {
+  if (!locale) {
+    locale = "en";
+  }
   const { data } = await ArticleAPI.byCategory(category, locale);
   return data;
 };
