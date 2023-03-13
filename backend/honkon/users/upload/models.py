@@ -24,13 +24,20 @@ class Image(models.Model):
         })
 
 
-class PictureSource(models.Model):
+class Picturesource(models.Model):
     name = models.CharField(max_length=63)
     slug = models.SlugField(max_length=63)
     url = models.URLField(max_length=255)
 
     def __str__(self):
         return self.name
+
+class PictureTag(models.Model):
+    tag = models.CharField(max_length=32)
+    slug = models.SlugField(max_length=32)
+
+    def __str__(self):
+        return self.tag
 
 class Picture(models.Model):
     picture = models.ImageField(_("Picture"), upload_to="pictures")
@@ -51,13 +58,7 @@ class Picture(models.Model):
         options={"quality": 50}
     )
     name = models.CharField(max_length=255)
-    source = models.ForeignKey(PictureSource, on_delete=models.CASCADE,related_name='picture_source')
+    source = models.ForeignKey(Picturesource, on_delete=models.CASCADE,related_name='picture_source')
+    tags = models.ManyToManyField(PictureTag, blank=True)
 
 
-class PictureTag(models.Model):
-    picture = models.ForeignKey(Picture, on_delete=models.CASCADE, help_text=_('This is the help text'), related_name='tag_picture')
-    tag = models.CharField(max_length=32)
-    slug = models.SlugField(max_length=32)
-
-    def __str__(self):
-        return self.tag

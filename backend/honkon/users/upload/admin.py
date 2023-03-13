@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Image, Picture, PictureTag
+from .models import Image, Picturesource, Picture, PictureTag
 
 
 @admin.register(Image)
@@ -16,5 +16,9 @@ class PictureAdmin(admin.ModelAdmin):
 
 @admin.register(PictureTag)
 class PictureTagAdmin(admin.ModelAdmin):
-    list_display = ('tag',)    
-    readonly_fields=('tag',)
+    list_display = ('tag','slug')
+
+@admin.register(Picturesource)
+class PicturesourceAdmin(admin.ModelAdmin):
+    list_display = ('name',)    
+    readonly_fields=('name',)
