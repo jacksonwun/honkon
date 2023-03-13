@@ -8,15 +8,10 @@ from .models.article import Article, Author
 from .models.tag import ArticleTag
 from .models.category import Category
 
-from users.upload.models import Image
+from users.upload.models import Picture
 
-class ImageInline(GenericTabularInline):
-    model = Image
-
-    def post_save_formset(self, request, form, model_admin, change):
-        print('123')
-        print(form)
-
+class PictureInline(admin.TabularInline):
+    model = Picture
 
 @admin.register(Article)
 class ArticleAdmin(TranslatableAdmin):
@@ -30,36 +25,35 @@ class ArticleAdmin(TranslatableAdmin):
         'caption',
         'content',
         'public',
-        # Image field
-        'my_image_thumbnail', 
         'pic',
-        'tags'
+        'tags',
+        'picture_preview',
         )
-    readonly_fields=('my_image_thumbnail',)
-
+    autocomplete_fields = ('tags', 'category')
+    readonly_fields=('picture_preview',)
     inlines = [
-        ImageInline,
+        PictureInline,
     ]
 
+    def picture_upload(self, obj):
+        return ""
 
-    # def save_model(self, request, obj, form, change):
-    #     print('1')
-    #     print(self.inlines[0].formset)
-    #     #super().save_formset(request, form, self.inlines[0].formset, change)
-    #     super().save_model(request, obj, form, change)
+    def picture_preview(self, obj):
+        return obj.picture.thumbnail_preview
 
-    # def save_formset(self, request, form, formset, change):
-    #     print('2')
-    #     super().save_formset(request, form, formset, change)
-    #     #formset.post_save_formset(request, form, self, change)        
+    picture_preview.short_description = 'Thumbnail Preview'
+    picture_preview.allow_tags = True
+     
 
 @admin.register(ArticleTag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ("tag",)
+    search_fields = ("tag",)
 
 @admin.register(Category)
 class CategoryAdmin(TranslatableAdmin):
     list_display = ("name", "parent")
+    search_fields = ("name",)
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):

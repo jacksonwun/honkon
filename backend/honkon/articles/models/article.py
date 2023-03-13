@@ -12,8 +12,7 @@ from parler.managers import TranslatableManager, TranslatableQuerySet
 from .author import Author
 from .category import Category
 from .tag import ArticleTag
-
-from users.upload.models import Image
+#from users.upload.models import Picture, Image
 
 from ckeditor.fields import RichTextField
 from random import randrange
@@ -56,15 +55,10 @@ class Article(TranslatableModel):
     publish_time = models.DateTimeField(auto_now=True, auto_now_add=False)
     public = models.BooleanField(default=True)
     tags = models.ManyToManyField(ArticleTag, blank=True)
+    #picture = models.ForeignKey(Picture, on_delete=models.CASCADE, blank=True, null=True, related_name='article_picture')
 
     def __str__(self):
         return self.title
-
-    @property
-    def content_adjust(self):
-        if self.content:
-            return self.content + '  Adjusted'
-        return None
 
     def save(self, *args, **kwargs):
         if not self.slug[-1].isdigit():

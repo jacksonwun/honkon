@@ -9,8 +9,6 @@ from logging.handlers import RotatingFileHandler
 
 from chatgpt_read import json_chatgpt_string
 
-
-
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 # AWS S3 credentials

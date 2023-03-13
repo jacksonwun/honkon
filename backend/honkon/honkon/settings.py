@@ -130,7 +130,8 @@ REST_FRAMEWORK = {
 # Application definition
 
 INSTALLED_APPS = [
-    'ckeditor',    
+    'ckeditor',
+    'imagekit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -143,6 +144,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     # Third parties
+    'sorl.thumbnail',
     'corsheaders',
     'storages',
     'rosetta',
@@ -152,7 +154,8 @@ INSTALLED_APPS = [
     'articles',
     'articles.api',
     'users',
-    'users.upload'
+    'users.upload',
+    'discount',
 ]
 
 MIDDLEWARE = [
