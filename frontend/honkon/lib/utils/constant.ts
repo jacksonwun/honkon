@@ -14,7 +14,8 @@ export const ARTICLE_QUERY_MAP = {
   "tab=author": `${SERVER_BASE_URL}/articles/author`,
 };
 
-export const hostname: string = `${process.env.NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME}`;
+export const hostname: string =
+  process.env.NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME;
 
 //** Language i18n */
 export const fallbackLng = "en";
