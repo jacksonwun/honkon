@@ -14,9 +14,7 @@ export const ARTICLE_QUERY_MAP = {
   "tab=author": `${SERVER_BASE_URL}/articles/author`,
 };
 
-export const DEFAULT_PROFILE_IMAGE = `https://static.productionready.io/images/smiley-cyrus.jpg`;
-
-export const DEFAULT_LIMIT = 20;
+export const hostname: string = `${process.env.NEXT_AWS_S3_FRONTEND_STATIC_HOSTNAME}`;
 
 //** Language i18n */
 export const fallbackLng = "en";

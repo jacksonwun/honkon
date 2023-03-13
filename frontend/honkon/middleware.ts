@@ -34,6 +34,11 @@ export const middleware = (request: NextRequest) => {
       return undefined;
     }
 
+    if (cookies.NEXT_LOCALE && nextUrl.locale === "default") {
+      url.pathname = `/${cookies.NEXT_LOCALE}${nextUrl.pathname}`;
+      return NextResponse.redirect(url);
+    }
+
     if (country === "zh-hk") {
       url.pathname = `/zh-hk${nextUrl.pathname}`;
       return NextResponse.redirect(url);
